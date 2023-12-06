@@ -3,8 +3,16 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: () => import('@/components/HomeView.vue'),
+    children: [
+      {
+        path: 'thread/:id',
+        name: 'thread',
+        component: () => import('@/components/ThreadView.vue'),
+        props: true,
+      },
+    ],
   },
 ];
 
