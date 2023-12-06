@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <HomeView />
   </div>
 </template>
