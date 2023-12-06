@@ -11,3 +11,7 @@ export default {
     <HomeView />
   </div>
 </template>
+
+<style>
+@import "@/assets/styles.css";
+</style>
