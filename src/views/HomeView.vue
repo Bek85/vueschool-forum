@@ -8,6 +8,11 @@ const { categories } = storeToRefs(useCategoriesStore());
 
 // const store = useStore();
 // const categories = computed(() => store.state.categories);
+// import { computed } from 'vue';
+// import { useStore } from 'vuex';
+
+// const store = useStore();
+// const categories = computed(() => store.state.categories);
 </script>
 
 
