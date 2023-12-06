@@ -12,6 +12,11 @@ const routes = [
     component: () => import('@/views/ThreadView.vue'),
     props: true,
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/views/NotFoundView.vue'),
+  },
 ];
 
 const router = createRouter({ routes, history: createWebHistory() });
