@@ -4,15 +4,13 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('@/components/HomeView.vue'),
-    children: [
-      {
-        path: 'thread/:id',
-        name: 'thread',
-        component: () => import('@/components/ThreadView.vue'),
-        props: true,
-      },
-    ],
+    component: () => import('@/views/HomeView.vue'),
+  },
+  {
+    path: '/thread/:id',
+    name: 'thread',
+    component: () => import('@/views/ThreadView.vue'),
+    props: true,
   },
 ];
 
