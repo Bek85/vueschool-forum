@@ -1,13 +1,9 @@
-<script>
-export default {
-  name: 'HomeView',
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-  computed: {
-    categories() {
-      return this.$store.state.categories;
-    },
-  },
-};
+const store = useStore();
+const categories = computed(() => store.state.categories);
 </script>
 
 
