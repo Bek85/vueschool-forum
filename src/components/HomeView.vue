@@ -9,6 +9,14 @@ export default {
       users: sourceData.users,
     };
   },
+  methods: {
+    postById(postId) {
+      return this.posts.find((p) => p.id === postId);
+    },
+    userById(userId) {
+      return this.users.find((u) => u.id === userId);
+    },
+  },
 };
 </script>
 
@@ -18,12 +26,9 @@ export default {
     <h2>{{ thread.title }}</h2>
     <div v-for="postId in thread.posts" :key="postId">
       <p>
-        {{
-          users.find((u) => u.id === posts.find((p) => p.id === postId).userId)
-            .username
-        }}
+        {{ userById(postById(postId).userId).name }}
       </p>
-      <p>{{ posts.find((p) => p.id === postId).text }}</p>
+      <p>{{ postById(postId).text }}</p>
     </div>
   </div>
 </template>
