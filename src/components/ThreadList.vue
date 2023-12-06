@@ -1,30 +1,27 @@
-<script>
-export default {
-  name: 'ThreadList',
+<script setup>
+import sourceData from '@/data.json';
+import { reactive } from 'vue';
 
-  props: {
-    threads: {
-      type: Array,
-      required: true,
-    },
-  },
+const state = reactive({
+  posts: sourceData.posts,
+  users: sourceData.users,
+});
 
-  computed: {
-    posts() {
-      return this.$store.state.posts;
-    },
-    users() {
-      return this.$store.state.users;
-    },
+const { users } = state;
+
+const { threads } = defineProps({
+  threads: {
+    type: Array,
+    required: true,
   },
-  methods: {
-    postById(postId) {
-      return this.posts.find((p) => p.id === postId);
-    },
-    userById(userId) {
-      return this.users.find((u) => u.id === userId);
-    },
-  },
+});
+
+// const postById = (postId) => {
+//   return posts.find((p) => p.id === postId);
+// };
+
+const userById = (userId) => {
+  return users.find((u) => u.id === userId);
 };
 </script>
 
