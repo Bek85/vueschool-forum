@@ -1,7 +1,7 @@
 <script>
-import sourceData from "@/data.json";
+import sourceData from '@/data.json';
 export default {
-  name: "HomeView",
+  name: 'HomeView',
   data() {
     return {
       threads: sourceData.threads,
@@ -187,7 +187,7 @@ export default {
   left: -25px;
   font-size: 42px;
   font-family: FontAwesome;
-  content: "\f10e";
+  content: '\f10e';
   color: #263959;
 }
 
@@ -238,7 +238,7 @@ export default {
   left: -20px;
   font-size: 42px;
   font-family: FontAwesome;
-  content: "\f10e";
+  content: '\f10e';
   color: #263959;
 }
 
@@ -297,7 +297,7 @@ export default {
   left: -25px;
   font-size: 42px;
   font-family: FontAwesome;
-  content: "\f10e";
+  content: '\f10e';
   color: #263959;
 }
 

@@ -1,7 +1,7 @@
 <script>
-import HomeView from "@/components/HomeView.vue";
+import HomeView from '@/components/HomeView.vue';
 export default {
-  name: "App",
+  name: 'App',
   components: { HomeView },
 };
 </script>
@@ -13,5 +13,5 @@ export default {
 </template>
 
 <style>
-@import "@/assets/styles.css";
+@import '@/assets/styles.css';
 </style>

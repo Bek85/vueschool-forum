@@ -1,4 +1,6 @@
-import { createApp } from "vue";
-import App from "./App.vue";
+import { createApp } from 'vue';
+import Root from './App.vue';
+export const app = createApp(Root);
+import '@/plugins/vue-router';
 
-createApp(App).mount("#app");
+app.mount('#app');
