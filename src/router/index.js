@@ -34,6 +34,12 @@ const routes = [
     },
   },
   {
+    path: '/forum/:id',
+    name: 'forum',
+    component: () => import('@/views/ForumView.vue'),
+    props: true,
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('@/views/NotFoundView.vue'),
