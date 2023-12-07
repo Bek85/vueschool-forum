@@ -1,9 +1,9 @@
 <script>
 import sourceData from '@/data.json';
-import AppDate from '@/components/AppDate.vue';
+
 export default {
   name: 'ThreadList',
-  components: { AppDate },
+
   props: {
     threads: {
       type: Array,

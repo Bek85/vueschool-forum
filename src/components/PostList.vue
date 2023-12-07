@@ -1,12 +1,9 @@
 <script>
 import sourceData from '@/data.json';
-import AppDate from '@/components/AppDate.vue';
 
 export default {
   name: 'PostList',
-  components: {
-    AppDate,
-  },
+
   props: {
     posts: {
       type: Array,
