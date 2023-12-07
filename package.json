@@ -11,6 +11,7 @@
     "format": "prettier .  --write"
   },
   "dependencies": {
+    "dayjs": "^1.11.10",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },
