@@ -1,6 +1,7 @@
 <script>
 import sourceData from '@/data.json';
 import PostList from '@/components/PostList.vue';
+import randomHex from '@/helpers/randomHex';
 
 export default {
   name: 'ThreadView',
@@ -26,6 +27,22 @@ export default {
       return this.posts.filter((post) => post.threadId === this.id);
     },
   },
+  methods: {
+    addNewPost() {
+      const postId = randomHex(10);
+      const post = {
+        id: postId,
+        text: this.newPostText,
+        publishedAt: Math.floor(Date.now() / 1000),
+        threadId: this.id,
+        // generate random user id using crypto api
+        userId: randomHex(11),
+      };
+      this.posts.push(post);
+      this.thread.posts.push(postId);
+      this.newPostText = '';
+    },
+  },
 };
 </script>
 
@@ -34,16 +51,15 @@ export default {
   <div class="col-large push-top">
     <h2>{{ thread.title }}</h2>
     <PostList :posts="threadPosts" />
-    <form>
+    <form @submit.prevent="addNewPost">
       <div class="form-group">
         <textarea
           id=""
-          :value="newPostText"
+          v-model="newPostText"
           class="form-input"
           name=""
           cols="30"
           rows="10"
-          @input="newPostText = $event.target.value"
         ></textarea>
       </div>
       <div class="form-actions">
