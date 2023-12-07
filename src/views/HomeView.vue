@@ -1,9 +1,9 @@
 <script>
 import sourceData from '@/data.json';
-import ThreadList from '@/components/ThreadList.vue';
+
 export default {
   name: 'HomeView',
-  components: { ThreadList },
+
   data() {
     return {
       threads: sourceData.threads,
