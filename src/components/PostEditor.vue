@@ -17,9 +17,7 @@ export default {
   },
   methods: {
     save() {
-      const postId = randomHex(10);
       const post = {
-        id: postId,
         text: this.text,
         publishedAt: Math.floor(Date.now() / 1000),
         // generate random user id using crypto api
