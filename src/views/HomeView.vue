@@ -6,7 +6,7 @@ export default {
 
   data() {
     return {
-      threads: sourceData.threads,
+      forums: sourceData.forums,
     };
   },
 };
@@ -15,7 +15,7 @@ export default {
 
 <template>
   <h1>Welcome to the Forum</h1>
-  <ThreadList :threads="threads" />
+  <ForumList :forums="forums" />
 </template>
 
 <style scoped>
