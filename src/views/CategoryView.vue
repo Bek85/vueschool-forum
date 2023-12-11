@@ -1,26 +1,21 @@
-<script>
-export default {
-  name: 'CategoryView',
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const { id } = defineProps({
+  id: {
+    type: String,
+    required: true,
   },
-  computed: {
-    category() {
-      return this.$store.state.categories.find(
-        (category) => category.id === this.id
-      );
-    },
-  },
-  methods: {
-    getForumsForCategory(category) {
-      return this.$store.state.forums.filter(
-        (forum) => forum.categoryId === category.id
-      );
-    },
-  },
+});
+const store = useStore();
+
+const category = computed(() => {
+  return store.state.categories.find((category) => category.id === id);
+});
+
+const getForumsForCategory = (category) => {
+  return store.state.forums.filter((forum) => forum.categoryId === category.id);
 };
 </script>
 
