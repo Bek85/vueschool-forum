@@ -1,5 +1,4 @@
 <script>
-import randomHex from '@/helpers/randomHex';
 export default {
   name: 'PostEditor',
   emits: ['save'],
