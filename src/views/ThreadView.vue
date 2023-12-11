@@ -1,36 +1,38 @@
-<script>
-export default {
-  name: 'ThreadView',
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
-  },
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-  computed: {
-    threads() {
-      return this.$store.state.threads;
-    },
-    posts() {
-      return this.$store.state.posts;
-    },
-    thread() {
-      return this.threads.find((t) => t.id === this.id);
-    },
-    threadPosts() {
-      return this.posts.filter((post) => post.threadId === this.id);
-    },
+const { id } = defineProps({
+  id: {
+    type: String,
+    required: true,
   },
-  methods: {
-    addNewPost(eventData) {
-      const post = {
-        ...eventData.post,
-        threadId: this.id,
-      };
-      this.$store.dispatch('createPost', post);
-    },
-  },
+});
+
+const store = useStore();
+
+const threads = computed(() => {
+  return store.state.threads;
+});
+
+const posts = computed(() => {
+  return store.state.posts;
+});
+
+const thread = computed(() => {
+  return threads.value.find((t) => t.id === id);
+});
+
+const threadPosts = computed(() => {
+  return posts.value.filter((post) => post.threadId === id);
+});
+
+const addNewPost = (eventData) => {
+  const post = {
+    ...eventData.post,
+    threadId: id,
+  };
+  store.dispatch('createPost', post);
 };
 </script>
 
