@@ -1,23 +1,20 @@
-<script>
-export default {
-  name: 'ForumView',
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const { id } = defineProps({
+  id: {
+    type: String,
+    required: true,
   },
-  computed: {
-    forum() {
-      return this.$store.state.forums.find((forum) => forum.id === this.id);
-    },
-    threads() {
-      return this.$store.state.threads.filter(
-        (thread) => thread.forumId === this.id
-      );
-    },
-  },
-};
+});
+
+const store = useStore();
+
+const forum = computed(() => store.state.forums.find((f) => f.id === id));
+const threads = computed(() =>
+  store.state.threads.filter((t) => t.forumId === id)
+);
 </script>
 
 
