@@ -1,13 +1,11 @@
 <script>
-import sourceData from '@/data.json';
-
 export default {
   name: 'HomeView',
 
-  data() {
-    return {
-      categories: sourceData.categories,
-    };
+  computed: {
+    categories() {
+      return this.$store.state.categories;
+    },
   },
 };
 </script>

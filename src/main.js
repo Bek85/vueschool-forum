@@ -1,10 +1,11 @@
 import { createApp } from 'vue';
 import Root from './App.vue';
 import router from './router';
-import AppDate from '@/components/AppDate.vue';
+import store from '@/store';
 
 const app = createApp(Root);
 
-app.component('AppDate', AppDate);
+app.use(router);
+app.use(store);
 
-app.use(router).mount('#app');
+app.mount('#app');

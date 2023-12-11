@@ -1,6 +1,4 @@
 <script>
-import sourceData from '@/data.json';
-
 export default {
   name: 'ThreadView',
   props: {
@@ -9,13 +7,14 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      threads: sourceData.threads,
-      posts: sourceData.posts,
-    };
-  },
+
   computed: {
+    threads() {
+      return this.$store.state.threads;
+    },
+    posts() {
+      return this.$store.state.posts;
+    },
     thread() {
       return this.threads.find((t) => t.id === this.id);
     },

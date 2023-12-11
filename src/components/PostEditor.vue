@@ -1,15 +1,20 @@
 <script>
-import sourceData from '@/data.json';
 import randomHex from '@/helpers/randomHex';
 export default {
   name: 'PostEditor',
   emits: ['save'],
   data() {
     return {
-      threads: sourceData.threads,
-      posts: sourceData.posts,
       text: '',
     };
+  },
+  computed: {
+    threads() {
+      return this.$store.state.threads;
+    },
+    posts() {
+      return this.$store.state.posts;
+    },
   },
   methods: {
     save() {

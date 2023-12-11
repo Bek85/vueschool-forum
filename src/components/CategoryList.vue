@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import sourceData from '@/data.json';
-
 export default {
   props: {
     categories: {
@@ -20,7 +18,7 @@ export default {
   },
   methods: {
     getForumsForCategory(category) {
-      return sourceData.forums.filter(
+      return this.$store.state.forums.filter(
         (forum) => forum.categoryId === category.id
       );
     },
