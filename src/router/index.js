@@ -34,6 +34,12 @@ const routes = [
     },
   },
   {
+    path: '/category/:id',
+    name: 'category',
+    component: () => import('@/views/CategoryView.vue'),
+    props: true,
+  },
+  {
     path: '/forum/:id',
     name: 'forum',
     component: () => import('@/views/ForumView.vue'),

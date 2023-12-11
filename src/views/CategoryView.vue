@@ -1,21 +1,21 @@
 <template>
-  <ForumList
-    v-for="category in categories"
-    :key="category.id"
-    :forums="getForumsForCategory(category)"
-    :title="category.name"
-    :category-id="category.id"
-  />
+  <h1>{{ category.name }}</h1>
+  <ForumList :title="category.name" :forums="getForumsForCategory(category)" />
 </template>
 
 <script>
 import sourceData from '@/data.json';
-
 export default {
+  name: 'CategoryView',
   props: {
-    categories: {
+    id: {
+      type: String,
       required: true,
-      type: Array,
+    },
+  },
+  computed: {
+    category() {
+      return sourceData.categories.find((category) => category.id === this.id);
     },
   },
   methods: {

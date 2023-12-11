@@ -6,9 +6,13 @@ export default {
       type: Array,
       required: true,
     },
-    categoryName: {
+    title: {
       type: String,
       default: 'Forums',
+    },
+    categoryId: {
+      type: String,
+      required: false,
     },
   },
   methods: {
@@ -28,7 +32,12 @@ export default {
   <div class="col-full">
     <div class="forum-list">
       <h2 class="list-title">
-        <a href="#">{{ categoryName }}</a>
+        <RouterLink
+          v-if="categoryId"
+          :to="{ name: 'category', params: { id: categoryId } }"
+          >{{ title }}</RouterLink
+        >
+        <span v-else>{{ title }}</span>
       </h2>
 
       <div v-for="forum in forums" :key="forum.id" class="forum-listing">
