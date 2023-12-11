@@ -6,6 +6,10 @@ export default {
       type: Array,
       required: true,
     },
+    categoryName: {
+      type: String,
+      default: 'Forums',
+    },
   },
   methods: {
     forumThreadsWord(forum) {
@@ -24,7 +28,7 @@ export default {
   <div class="col-full">
     <div class="forum-list">
       <h2 class="list-title">
-        <a href="#">Forums</a>
+        <a href="#">{{ categoryName }}</a>
       </h2>
 
       <div v-for="forum in forums" :key="forum.id" class="forum-listing">
