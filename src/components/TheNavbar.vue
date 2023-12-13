@@ -15,7 +15,7 @@
     <nav class="navbar">
       <ul>
         <li class="navbar-user">
-          <a href="#">
+          <RouterLink :to="{ name: 'profile' }">
             <img
               class="avatar-small"
               :src="authUser?.avatar"
@@ -29,7 +29,7 @@
                 alt=""
               />
             </span>
-          </a>
+          </RouterLink>
 
           <!-- dropdown menu -->
           <!-- add class "active-drop" to show the dropdown -->
