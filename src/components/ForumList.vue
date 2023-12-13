@@ -13,6 +13,7 @@ export default {
     categoryId: {
       type: String,
       required: false,
+      default: null,
     },
   },
   methods: {
