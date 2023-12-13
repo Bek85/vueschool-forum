@@ -1,9 +1,13 @@
 <script setup>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
+// import { computed } from 'vue';
+// import { useStore } from 'vuex';
+import { useCategoriesStore } from '@/stores/CategoriesStore';
+import { storeToRefs } from 'pinia';
 
-const store = useStore();
-const categories = computed(() => store.state.categories);
+const { categories } = storeToRefs(useCategoriesStore());
+
+// const store = useStore();
+// const categories = computed(() => store.state.categories);
 </script>
 
 
