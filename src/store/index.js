@@ -5,7 +5,7 @@ import randomHex from '@/helpers/randomHex';
 export default createStore({
   state: {
     ...sourceData,
-    authId: 'f5xvKdIPQdSrUtT6i3UiHYttRXO2',
+    authId: 'ALXhxjwgY9PinwNGHpfai6OWyDu2',
   },
   actions: {
     createPost(context, post) {
