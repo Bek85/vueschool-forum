@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
 import sourceData from '@/data.json';
 
-export const useCategoriesStore = defineStore('categories', {
+export const useThreadsStore = defineStore('threads', {
   state: () => {
-    return { categories: sourceData.categories };
+    return { threads: sourceData.threads };
   },
   getters: {},
   actions: {},

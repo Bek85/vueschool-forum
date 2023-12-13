@@ -1,6 +1,9 @@
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+// import { useStore } from 'vuex';
+// import { storeToRefs } from 'pinia';
+import { usePostsStore } from '@/stores/PostsStore';
+import { useThreadsStore } from '@/stores/ThreadsStore';
 
 const { id } = defineProps({
   id: {
@@ -9,22 +12,26 @@ const { id } = defineProps({
   },
 });
 
-const store = useStore();
+const { threads } = useThreadsStore();
 
-const threads = computed(() => {
-  return store.state.threads;
-});
+const { posts, createPost } = usePostsStore();
 
-const posts = computed(() => {
-  return store.state.posts;
-});
+// const store = useStore();
+
+// const threads = computed(() => {
+//   return store.state.threads;
+// });
+
+// const posts = computed(() => {
+//   return store.state.posts;
+// });
 
 const thread = computed(() => {
-  return threads.value.find((t) => t.id === id);
+  return threads.find((t) => t.id === id);
 });
 
 const threadPosts = computed(() => {
-  return posts.value.filter((post) => post.threadId === id);
+  return posts.filter((post) => post.threadId === id);
 });
 
 const addNewPost = (eventData) => {
@@ -32,7 +39,7 @@ const addNewPost = (eventData) => {
     ...eventData.post,
     threadId: id,
   };
-  store.dispatch('createPost', post);
+  createPost(post);
 };
 </script>
 
