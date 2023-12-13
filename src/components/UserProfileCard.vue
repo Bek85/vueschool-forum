@@ -27,6 +27,12 @@
       <i class="fa fa-globe"></i>
       <a :href="user.website">{{ user.website }}</a>
     </p>
+    <div class="text-center">
+      <hr />
+      <RouterLink :to="{ name: 'profileEdit' }" class="btn-green btn-small"
+        >Edit Profile</RouterLink
+      >
+    </div>
   </div>
 </template>
 
