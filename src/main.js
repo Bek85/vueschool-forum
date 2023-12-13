@@ -5,6 +5,7 @@ import store from '@/store';
 
 const app = createApp(Root);
 
+app.config.globalProperties.console = console;
 app.use(router);
 app.use(store);
 
