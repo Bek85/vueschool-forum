@@ -49,6 +49,7 @@ const routes = [
     path: '/me',
     name: 'profile',
     component: () => import('@/views/ProfileView.vue'),
+    meta: { toTop: true, smoothScroll: true },
   },
   {
     path: '/me/edit',
@@ -63,6 +64,15 @@ const routes = [
   },
 ];
 
-const router = createRouter({ routes, history: createWebHistory() });
+const router = createRouter({
+  routes,
+  history: createWebHistory(),
+  scrollBehavior(to) {
+    const scroll = {};
+    if (to.meta.toTop) scroll.top = 0;
+    if (to.meta.smoothScroll) scroll.behavior = 'smooth';
+    return scroll;
+  },
+});
 
 export default router;
