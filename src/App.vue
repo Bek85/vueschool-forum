@@ -5,6 +5,7 @@ export default {
 </script>
 
 <template>
+  <TheNavbar />
   <div class="container">
     <RouterView />
   </div>
