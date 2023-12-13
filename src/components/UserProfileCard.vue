@@ -3,7 +3,7 @@
     <p class="text-center">
       <img
         :src="user.avatar"
-        alt="`${user.name} profile pitcutre`"
+        :alt="`${user.name} profile pitcutre`"
         class="avatar-xlarge"
       />
     </p>

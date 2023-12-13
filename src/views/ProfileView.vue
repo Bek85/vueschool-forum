@@ -2,6 +2,7 @@
   <div class="flex-grid">
     <div class="col-3 push-top">
       <UserProfileCard :user="user" />
+      <UserProfileCardEditor :user="user" />
 
       <p class="text-xsmall text-faded text-center">
         Member since june 2003, last visited 4 hours ago
