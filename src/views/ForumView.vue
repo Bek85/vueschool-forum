@@ -1,4 +1,6 @@
 <script>
+import { findById } from '@/helpers';
+
 export default {
   name: 'ForumView',
   props: {
@@ -9,7 +11,8 @@ export default {
   },
   computed: {
     forum() {
-      return this.$store.state.forums.find((forum) => forum.id === this.id);
+      return findById(this.$store.state.forums, this.id);
+      // return this.$store.state.forums.find((forum) => forum.id === this.id);
     },
     threads() {
       return this.$store.state.threads.filter(

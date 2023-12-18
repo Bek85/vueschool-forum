@@ -1,4 +1,5 @@
 <script>
+import { findById } from '@/helpers';
 export default {
   name: 'CategoryView',
   props: {
@@ -9,9 +10,11 @@ export default {
   },
   computed: {
     category() {
-      return this.$store.state.categories.find(
-        (category) => category.id === this.id
-      );
+      return findById(this.$store.state.categories, this.id);
+
+      // return this.$store.state.categories.find(
+      //   (category) => category.id === this.id
+      // );
     },
   },
   methods: {

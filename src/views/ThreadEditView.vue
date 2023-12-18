@@ -1,4 +1,6 @@
 <script>
+import { findById } from '@/helpers';
+
 export default {
   props: {
     id: {
@@ -8,14 +10,18 @@ export default {
   },
   computed: {
     thread() {
-      return this.$store.state.threads.find((thread) => thread.id === this.id);
+      return findById(this.$store.state.threads, this.id);
+
+      // return this.$store.state.threads.find((thread) => thread.id === this.id);
     },
     text() {
-      const threadText = this.$store.state.posts.find((post) => {
-        return post.id === this.thread.posts[0];
-      }).text;
+      return findById(this.$store.state.posts, this.thread.posts[0]).text;
 
-      return threadText;
+      // const threadText = this.$store.state.posts.find((post) => {
+      //   return post.id === this.thread.posts[0];
+      // }).text;
+
+      // return threadText;
     },
   },
   methods: {

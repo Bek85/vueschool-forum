@@ -1,4 +1,6 @@
 <script>
+import { findById } from '@/helpers';
+
 export default {
   name: 'ThreadView',
   props: {
@@ -16,7 +18,8 @@ export default {
       return this.$store.state.posts;
     },
     thread() {
-      return this.threads.find((t) => t.id === this.id);
+      return findById(this.threads, this.id);
+      // return this.threads.find((t) => t.id === this.id);
     },
     threadPosts() {
       return this.posts.filter((post) => post.threadId === this.id);
