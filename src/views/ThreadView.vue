@@ -37,8 +37,25 @@ export default {
 
 <template>
   <div class="col-large push-top">
-    <h2>{{ thread.title }}</h2>
+    <div class="heading">
+      <h1>
+        {{ thread.title }}
+      </h1>
+      <RouterLink
+        :to="{ name: 'threadEdit', id: id }"
+        class="btn-green btn-small"
+        >Edit Thread</RouterLink
+      >
+    </div>
     <PostList :posts="threadPosts" />
     <PostEditor @save="addNewPost" />
   </div>
 </template>
+
+<style scoped>
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>

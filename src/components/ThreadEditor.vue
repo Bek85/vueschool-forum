@@ -20,6 +20,13 @@ export default {
       },
     };
   },
+
+  computed: {
+    existing() {
+      return !!this.title;
+    },
+  },
+
   methods: {
     save() {
       this.$emit('save', { ...this.form });
@@ -57,7 +64,9 @@ export default {
       <button class="btn btn-ghost" @click.prevent="$emit('cancel')">
         Cancel
       </button>
-      <button class="btn btn-blue" type="submit" name="Publish">Publish</button>
+      <button class="btn btn-blue" type="submit" name="Publish">
+        {{ existing ? 'Update' : 'Publish' }}
+      </button>
     </div>
   </form>
 </template>
