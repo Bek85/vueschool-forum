@@ -1,7 +1,6 @@
 <script>
 export default {
   name: 'ForumView',
-
   props: {
     id: {
       type: String,
@@ -29,7 +28,11 @@ export default {
         <h1>{{ forum.name }}</h1>
         <p class="text-lead">{{ forum.description }}</p>
       </div>
-      <a href="new-thread.html" class="btn-green btn-small">Start a thread</a>
+      <RouterLink
+        :to="{ name: 'threadCreate', params: { forumId: forum.id } }"
+        class="btn-green btn-small"
+        >Start a thread</RouterLink
+      >
     </div>
   </div>
 

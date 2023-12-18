@@ -1,8 +1,8 @@
 <script>
 export default {
   props: {
-    forum: {
-      type: Object,
+    forumId: {
+      type: String,
       required: true,
     },
   },
@@ -11,6 +11,13 @@ export default {
       title: '',
       text: '',
     };
+  },
+  computed: {
+    forum() {
+      return this.$store.state.forums.find(
+        (forum) => forum.id === this.forumId
+      );
+    },
   },
   methods: {
     // dispatch vue action

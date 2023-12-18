@@ -34,6 +34,12 @@ const routes = [
     },
   },
   {
+    path: '/forum/:forumId/thread/create',
+    name: 'threadCreate',
+    component: () => import('@/views/ThreadCreateView.vue'),
+    props: true,
+  },
+  {
     path: '/category/:id',
     name: 'category',
     component: () => import('@/views/CategoryView.vue'),
@@ -57,6 +63,7 @@ const routes = [
     component: () => import('@/views/ProfileView.vue'),
     props: { edit: true },
   },
+
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',

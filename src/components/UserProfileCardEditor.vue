@@ -1,3 +1,29 @@
+<script>
+export default {
+  name: 'UserProfileCardEditor',
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      currentUser: { ...this.user },
+    };
+  },
+  methods: {
+    save() {
+      this.$store.dispatch('updateUser', { ...this.currentUser });
+      this.$router.push({ name: 'profile' });
+    },
+    cancel() {
+      this.$router.push({ name: 'profile' });
+    },
+  },
+};
+</script>
+
 <template>
   <div class="profile-card">
     <form @submit.prevent="save">
@@ -81,29 +107,3 @@
     </form>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'UserProfileCardEditor',
-  props: {
-    user: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      currentUser: { ...this.user },
-    };
-  },
-  methods: {
-    save() {
-      this.$store.dispatch('updateUser', { ...this.currentUser });
-      this.$router.push({ name: 'profile' });
-    },
-    cancel() {
-      this.$router.push({ name: 'profile' });
-    },
-  },
-};
-</script>

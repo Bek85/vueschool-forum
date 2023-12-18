@@ -1,3 +1,15 @@
+<script>
+export default {
+  name: 'UserProfileCard',
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
+};
+</script>
+
 <template>
   <div class="profile-card">
     <p class="text-center">
@@ -35,15 +47,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'UserProfileCard',
-  props: {
-    user: {
-      type: Object,
-      required: true,
-    },
-  },
-};
-</script>

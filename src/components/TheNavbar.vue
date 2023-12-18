@@ -1,3 +1,14 @@
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  name: 'TheNavbar',
+  computed: {
+    ...mapGetters(['authUser']),
+  },
+};
+</script>
+
 <template>
   <header id="header" class="header">
     <RouterLink :to="{ name: 'home' }" class="logo">
@@ -69,14 +80,3 @@
     </nav>
   </header>
 </template>
-
-<script>
-import { mapGetters } from 'vuex';
-
-export default {
-  name: 'TheNavbar',
-  computed: {
-    ...mapGetters(['authUser']),
-  },
-};
-</script>

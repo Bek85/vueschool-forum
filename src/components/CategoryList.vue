@@ -1,13 +1,3 @@
-<template>
-  <ForumList
-    v-for="category in categories"
-    :key="category.id"
-    :forums="getForumsForCategory(category)"
-    :title="category.name"
-    :category-id="category.id"
-  />
-</template>
-
 <script>
 export default {
   props: {
@@ -25,3 +15,13 @@ export default {
   },
 };
 </script>
+
+<template>
+  <ForumList
+    v-for="category in categories"
+    :key="category.id"
+    :forums="getForumsForCategory(category)"
+    :title="category.name"
+    :category-id="category.id"
+  />
+</template>
