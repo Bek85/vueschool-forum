@@ -6,12 +6,6 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      title: '',
-      text: '',
-    };
-  },
   computed: {
     forum() {
       return this.$store.state.forums.find(
@@ -21,10 +15,10 @@ export default {
   },
   methods: {
     // dispatch vue action
-    async save() {
+    async save({ title, text }) {
       const thread = await this.$store.dispatch('createThread', {
-        title: this.title,
-        text: this.text,
+        title,
+        text,
         forumId: this.forum.id,
       });
       this.$router.push({
@@ -53,36 +47,6 @@ export default {
       Create new thread in <i>{{ forum.name }}</i>
     </h1>
 
-    <form @submit.prevent="save">
-      <div class="form-group">
-        <label for="thread_title">Title:</label>
-        <input
-          id="thread_title"
-          v-model="title"
-          type="text"
-          class="form-input"
-          name="title"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="thread_content">Content:</label>
-        <textarea
-          id="thread_content"
-          v-model="text"
-          class="form-input"
-          name="content"
-          rows="8"
-          cols="140"
-        ></textarea>
-      </div>
-
-      <div class="btn-group">
-        <button class="btn btn-ghost" @click="cancel">Cancel</button>
-        <button class="btn btn-blue" type="submit" name="Publish">
-          Publish
-        </button>
-      </div>
-    </form>
+    <ThreadEditor :forum-id="forum.id" @save="save" @cancel="cancel" />
   </div>
 </template>
