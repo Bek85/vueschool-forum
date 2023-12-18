@@ -1,38 +1,61 @@
-<script>
-export default {
-  props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    text: {
-      type: String,
-      default: '',
-    },
-  },
-  emits: ['save', 'cancel'],
+<script setup>
+import { reactive, computed } from 'vue';
 
-  data() {
-    return {
-      form: {
-        title: this.title,
-        text: this.text,
-      },
-    };
+const { title, text } = defineProps({
+  title: {
+    type: String,
+    default: '',
   },
+  text: {
+    type: String,
+    default: '',
+  },
+});
 
-  computed: {
-    existing() {
-      return !!this.title;
-    },
-  },
+const emit = defineEmits(['save', 'cancel']);
 
-  methods: {
-    save() {
-      this.$emit('save', { ...this.form });
-    },
-  },
+const form = reactive({
+  title: title,
+  text: text,
+});
+
+const save = () => {
+  emit('save', { ...form });
 };
+
+const existing = computed(() => !!title);
+
+// export default {
+//   props: {
+//     title: {
+//       type: String,
+//       default: '',
+//     },
+//     text: {
+//       type: String,
+//       default: '',
+//     },
+//   },
+//   emits: ['save', 'cancel'],
+
+//   data() {
+//     return {
+
+//     };
+//   },
+
+//   computed: {
+//     existing() {
+//       return !!this.title;
+//     },
+//   },
+
+//   methods: {
+//     save() {
+//       this.$emit('save', { ...this.form });
+//     },
+//   },
+// };
 </script>
 
 <template>
