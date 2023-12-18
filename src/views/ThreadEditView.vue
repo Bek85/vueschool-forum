@@ -35,7 +35,7 @@ export default {
     },
     cancel() {
       this.$router.push({
-        name: 'forum',
+        name: 'thread',
         params: {
           id: this.id,
         },
