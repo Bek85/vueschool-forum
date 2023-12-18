@@ -40,6 +40,12 @@ const routes = [
     props: true,
   },
   {
+    path: '/thread/:id/edit',
+    name: 'threadEdit',
+    component: () => import('@/views/ThreadEditView.vue'),
+    props: true,
+  },
+  {
     path: '/category/:id',
     name: 'category',
     component: () => import('@/views/CategoryView.vue'),

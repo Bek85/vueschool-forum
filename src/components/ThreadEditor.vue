@@ -1,21 +1,28 @@
 <script>
 export default {
   props: {
-    forumId: {
+    title: {
       type: String,
-      required: true,
+      default: '',
+    },
+    text: {
+      type: String,
+      default: '',
     },
   },
   emits: ['save', 'cancel'],
+
   data() {
     return {
-      title: '',
-      text: '',
+      form: {
+        title: this.title,
+        text: this.text,
+      },
     };
   },
   methods: {
     save() {
-      this.$emit('save', { title: this.title, text: this.text });
+      this.$emit('save', { ...this.form });
     },
   },
 };
@@ -27,7 +34,7 @@ export default {
       <label for="thread_title">Title:</label>
       <input
         id="thread_title"
-        v-model="title"
+        v-model="form.title"
         type="text"
         class="form-input"
         name="title"
@@ -38,7 +45,7 @@ export default {
       <label for="thread_content">Content:</label>
       <textarea
         id="thread_content"
-        v-model="text"
+        v-model="form.text"
         class="form-input"
         name="content"
         rows="8"
