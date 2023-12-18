@@ -1,3 +1,21 @@
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  name: 'ProfileView',
+  props: {
+    edit: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    ...mapGetters({ user: 'authUser' }),
+  },
+};
+</script>
+
+
 <template>
   <div class="flex-grid">
     <div class="col-3 push-top">
@@ -20,20 +38,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import { mapGetters } from 'vuex';
-
-export default {
-  name: 'ProfileView',
-  props: {
-    edit: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: {
-    ...mapGetters({ user: 'authUser' }),
-  },
-};
-</script>
