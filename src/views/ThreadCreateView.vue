@@ -21,11 +21,25 @@ export default {
   },
   methods: {
     // dispatch vue action
-    save() {
-      this.$store.dispatch('createThread', {
+    async save() {
+      const thread = await this.$store.dispatch('createThread', {
         title: this.title,
         text: this.text,
         forumId: this.forum.id,
+      });
+      this.$router.push({
+        name: 'thread',
+        params: {
+          id: thread.id,
+        },
+      });
+    },
+    cancel() {
+      this.$router.push({
+        name: 'forum',
+        params: {
+          id: this.forum.id,
+        },
       });
     },
   },
@@ -64,7 +78,7 @@ export default {
       </div>
 
       <div class="btn-group">
-        <button class="btn btn-ghost">Cancel</button>
+        <button class="btn btn-ghost" @click="cancel">Cancel</button>
         <button class="btn btn-blue" type="submit" name="Publish">
           Publish
         </button>
