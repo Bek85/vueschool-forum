@@ -1,5 +1,5 @@
 <script>
-import { findById } from '@/helpers';
+// import { findById } from '@/helpers';
 
 export default {
   name: 'ThreadView',
@@ -18,8 +18,9 @@ export default {
       return this.$store.state.posts;
     },
     thread() {
-      return findById(this.threads, this.id);
+      // return findById(this.threads, this.id);
       // return this.threads.find((t) => t.id === this.id);
+      return this.$store.getters.thread(this.id);
     },
     threadPosts() {
       return this.posts.filter((post) => post.threadId === this.id);
@@ -40,16 +41,26 @@ export default {
 
 <template>
   <div class="col-large push-top">
-    <div class="heading">
-      <h1>
-        {{ thread.title }}
-      </h1>
+    <h1>
+      {{ thread.title }}
+
       <RouterLink
         :to="{ name: 'threadEdit', id: id }"
         class="btn-green btn-small"
         >Edit Thread</RouterLink
       >
-    </div>
+    </h1>
+    <p>
+      By <a href="#" class="link-unstyled">{{ thread.author.name }}</a
+      >, <AppDate :timestamp="thread.publishedAt" />.
+      <span
+        style="float: right; margin-top: 2px"
+        class="hide-mobile text-faded text-small"
+        >{{ thread.repliesCount }} replies by
+        {{ thread.contributorsCount }} contributors</span
+      >
+    </p>
+
     <PostList :posts="threadPosts" />
     <PostEditor @save="addNewPost" />
   </div>
