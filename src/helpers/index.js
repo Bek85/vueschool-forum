@@ -13,7 +13,7 @@ export const findById = (collection, id) => {
 export const upsert = (collection, item) => {
   const index = collection.findIndex((i) => i.id === item.id);
 
-  if (item.id && index === -1) {
+  if (item.id && index !== -1) {
     collection[index] = item;
   } else {
     collection.push(item);

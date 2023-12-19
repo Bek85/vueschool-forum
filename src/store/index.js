@@ -2,14 +2,6 @@ import { createStore } from 'vuex';
 import sourceData from '@/data.json';
 import { findById, randomHex, upsert } from '@/helpers';
 
-const makeAppendChildToParentMutation =
-  ({ parent, child }) =>
-  (state, { childId, parentId }) => {
-    const resource = findById(state[parent], parentId);
-    resource[child] = resource[child] || [];
-    resource[child].push(childId);
-  };
-
 export default createStore({
   state: {
     ...sourceData,
@@ -41,8 +33,9 @@ export default createStore({
       };
 
       commit('setThread', { thread });
-      commit('appendThreadToForum', { parentId: forumId, childId: id });
       commit('appendThreadToUser', { parentId: userId, childId: id });
+      commit('appendThreadToForum', { parentId: forumId, childId: id });
+
       dispatch('createPost', { text, threadId: id });
 
       return findById(state.threads, id);
@@ -132,3 +125,11 @@ export default createStore({
     },
   },
 });
+
+function makeAppendChildToParentMutation({ parent, child }) {
+  return (state, { childId, parentId }) => {
+    const resource = findById(state[parent], parentId);
+    resource[child] = resource[child] || [];
+    resource[child].push(childId);
+  };
+}
