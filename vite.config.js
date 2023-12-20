@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint';
 import vue from '@vitejs/plugin-vue';
 import Components from 'unplugin-vue-components/vite';
+import commonjs from 'vite-plugin-commonjs';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,6 +19,7 @@ export default defineConfig({
     Components({
       /* options */
     }),
+    commonjs(/* options */),
   ],
   resolve: {
     alias: {
