@@ -7,6 +7,24 @@ export default {
       return this.$store.state.categories;
     },
   },
+  beforeCreate() {
+    console.log('before create hook called', this.categories);
+  },
+  created() {
+    console.log('created hook called', this.categories);
+  },
+  beforeMount() {
+    console.log('before mount hook called', this.categories);
+  },
+  mounted() {
+    console.log('mounted hook called', this.categories, this.$el);
+  },
+  beforeUnmount() {
+    console.log('before unmount hook called', this.categories);
+  },
+  unmounted() {
+    console.log('unmounted hook called', this.categories);
+  },
 };
 </script>
 
