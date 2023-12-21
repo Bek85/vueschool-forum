@@ -10,12 +10,21 @@ export default {
   },
   computed: {
     category() {
-      return findById(this.$store.state.categories, this.id);
+      return findById(this.$store.state.categories, this.id) || {};
 
       // return this.$store.state.categories.find(
       //   (category) => category.id === this.id
       // );
     },
+  },
+  async created() {
+    const category = await this.$store.dispatch('fetchCategory', {
+      id: this.id,
+    });
+
+    this.$store.dispatch('fetchForums', {
+      ids: category.forums,
+    });
   },
   methods: {
     getForumsForCategory(category) {
