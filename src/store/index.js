@@ -45,20 +45,9 @@ export default createStore({
       });
     },
 
-    fetchPost({ state, commit }, { id }) {
-      console.log(id);
+    fetchPost({ dispatch }, { id }) {
       // fetch the thread
-      return new Promise((resolve) => {
-        firebase
-          .firestore()
-          .collection('posts')
-          .doc(id)
-          .onSnapshot((doc) => {
-            const post = { ...doc.data(), id: doc.id };
-            commit('setPost', { post });
-            resolve(post);
-          });
-      });
+      return dispatch('fetchItem', { resource: 'posts', id, emoji: '📄' });
     },
 
     createPost({ commit, state }, post) {
@@ -126,8 +115,28 @@ export default createStore({
     updateUser(context, user) {
       context.commit('setUser', { user, userId: user.id });
     },
+
+    fetchItem({ state, commit }, { id, emoji, resource }) {
+      console.log('🔥', emoji, id);
+      // fetch the item
+      return new Promise((resolve) => {
+        firebase
+          .firestore()
+          .collection(resource)
+          .doc(id)
+          .onSnapshot((doc) => {
+            const item = { ...doc.data(), id: doc.id };
+            commit('setItem', { resource, id, item });
+            resolve(item);
+          });
+      });
+    },
   },
   mutations: {
+    setItem(state, { resource, item }) {
+      upsert(state[resource], item);
+    },
+
     setPost(state, { post }) {
       upsert(state.posts, post);
     },
