@@ -25,7 +25,7 @@ export default {
 <template>
   <div class="post-list">
     <div v-for="post in posts" :key="post.id" class="post">
-      <div class="user-info">
+      <div v-if="userById(post.userId)" class="user-info">
         <a href="#" class="user-name">{{ userById(post.userId)?.name }}</a>
         <a href="#">
           <img
