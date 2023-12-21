@@ -15,7 +15,7 @@ export default createStore({
   },
   actions: {
     fetchAllCategories({ commit }) {
-      console.log('🔥', '🏷', 'all');
+      console.log('🔥', '📠', 'categories');
 
       return new Promise((resolve) => {
         firebase
@@ -33,12 +33,20 @@ export default createStore({
       });
     },
 
+    fetchCategory({ dispatch }, { id }) {
+      return dispatch('fetchItem', { resource: 'categories', id, emoji: '📠' });
+    },
+
     fetchThread({ dispatch }, { id }) {
       return dispatch('fetchItem', { resource: 'threads', id, emoji: '📄' });
     },
 
     fetchThreads({ dispatch }, { ids }) {
       return dispatch('fetchItems', { resource: 'threads', ids, emoji: '📄' });
+    },
+
+    fetchForum({ dispatch }, { id }) {
+      return dispatch('fetchItem', { resource: 'forums', id, emoji: '📕' });
     },
 
     fetchForums({ dispatch }, { ids }) {
@@ -128,7 +136,7 @@ export default createStore({
     },
 
     fetchItem({ state, commit }, { id, emoji, resource }) {
-      console.log('🔥', emoji, id);
+      console.log('🔥', emoji, `${resource}-id: ${id}`);
       // fetch the item
       return new Promise((resolve) => {
         firebase
@@ -144,7 +152,7 @@ export default createStore({
     },
 
     fetchItems({ dispatch }, { ids, resource, emoji }) {
-      console.log('🔥', emoji, ids);
+      console.log('🔥', emoji, `${resource}-ids: ${ids}`);
       return Promise.all(
         ids.map((id) => dispatch('fetchItem', { id, resource, emoji }))
       );
@@ -220,6 +228,7 @@ export default createStore({
     thread: (state) => {
       return (id) => {
         const thread = findById(state.threads, id);
+        if (!thread) return {};
         return {
           ...thread,
           get author() {

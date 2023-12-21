@@ -24,7 +24,7 @@ export default {
       // return this.posts.find((p) => p.id === postId);
     },
     userById(userId) {
-      return findById(this.users, userId);
+      return findById(this.users, userId) || {};
       // return this.users.find((u) => u.id === userId);
     },
   },
