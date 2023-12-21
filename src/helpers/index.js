@@ -7,6 +7,7 @@ export const randomHex = (n) => {
 };
 
 export const findById = (collection, id) => {
+  if (!collection) return null;
   return collection.find((item) => item.id === id);
 };
 
