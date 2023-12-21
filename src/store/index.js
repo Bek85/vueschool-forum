@@ -14,40 +14,15 @@ export default createStore({
     authId: 'ALXhxjwgY9PinwNGHpfai6OWyDu2',
   },
   actions: {
-    fetchThread({ state, commit }, { id }) {
-      console.log(id);
-      // fetch the thread
-      return new Promise((resolve) => {
-        firebase
-          .firestore()
-          .collection('threads')
-          .doc(id)
-          .onSnapshot((doc) => {
-            const thread = { ...doc.data(), id: doc.id };
-            commit('setThread', { thread });
-            resolve(thread);
-          });
-      });
+    fetchThread({ dispatch }, { id }) {
+      return dispatch('fetchItem', { resource: 'threads', id, emoji: '📄' });
     },
-    fetchUser({ state, commit }, { id }) {
-      console.log(id);
-      // fetch the thread
-      return new Promise((resolve) => {
-        firebase
-          .firestore()
-          .collection('users')
-          .doc(id)
-          .onSnapshot((doc) => {
-            const user = { ...doc.data(), id: doc.id };
-            commit('setUser', { user });
-            resolve(user);
-          });
-      });
+    fetchUser({ dispatch }, { id }) {
+      return dispatch('fetchItem', { resource: 'users', id, emoji: '🙋‍♂️' });
     },
 
     fetchPost({ dispatch }, { id }) {
-      // fetch the thread
-      return dispatch('fetchItem', { resource: 'posts', id, emoji: '📄' });
+      return dispatch('fetchItem', { resource: 'posts', id, emoji: '📫' });
     },
 
     createPost({ commit, state }, post) {
