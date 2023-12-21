@@ -14,12 +14,35 @@ export default createStore({
     authId: 'ALXhxjwgY9PinwNGHpfai6OWyDu2',
   },
   actions: {
+    fetchAllCategories({ commit }) {
+      console.log('🔥', '🏷', 'all');
+
+      return new Promise((resolve) => {
+        firebase
+          .firestore()
+          .collection('categories')
+          .onSnapshot((querySnapshot) => {
+            const categories = querySnapshot.docs.map((doc) => {
+              const item = { ...doc.data(), id: doc.id };
+              commit('setItem', { resource: 'categories', item });
+
+              return item;
+            });
+            resolve(categories);
+          });
+      });
+    },
+
     fetchThread({ dispatch }, { id }) {
       return dispatch('fetchItem', { resource: 'threads', id, emoji: '📄' });
     },
 
     fetchThreads({ dispatch }, { ids }) {
       return dispatch('fetchItems', { resource: 'threads', ids, emoji: '📄' });
+    },
+
+    fetchForums({ dispatch }, { ids }) {
+      return dispatch('fetchItems', { resource: 'forums', ids, emoji: '📕' });
     },
 
     fetchUser({ dispatch }, { id }) {
