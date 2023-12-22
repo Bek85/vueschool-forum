@@ -1,4 +1,5 @@
 <script>
+import { mapActions } from 'vuex';
 import { findById } from '@/helpers';
 
 export default {
@@ -26,13 +27,19 @@ export default {
     },
   },
   async created() {
-    const forum = await this.$store.dispatch('fetchForum', { id: this.id });
-    const threads = await this.$store.dispatch('fetchThreads', {
+    const forum = await this.fetchForum({ id: this.id });
+
+    const threads = await this.fetchThreads({
       ids: forum.threads,
     });
-    this.$store.dispatch('fetchUsers', {
+
+    this.fetchUsers({
       ids: threads.map((thread) => thread.userId),
     });
+  },
+
+  methods: {
+    ...mapActions(['fetchForum', 'fetchThreads', 'fetchUsers']),
   },
 };
 </script>
