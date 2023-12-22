@@ -36,6 +36,9 @@ export default {
   fetchUser: ({ dispatch }, { id }) =>
     dispatch('fetchItem', { resource: 'users', id, emoji: '🙋‍♂️' }),
 
+  fetchAuthUser: ({ dispatch, state }) =>
+    dispatch('fetchItem', { resource: 'users', id: state.authId, emoji: '🙋‍♂️' }),
+
   fetchUsers: ({ dispatch }, { ids }) =>
     dispatch('fetchItems', { resource: 'users', ids, emoji: '🙋‍♂️' }),
 
