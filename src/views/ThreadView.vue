@@ -1,4 +1,5 @@
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: 'ThreadView',
   props: {
@@ -24,21 +25,22 @@ export default {
   },
   async created() {
     // fetch the thread
-    const thread = await this.$store.dispatch('fetchThread', { id: this.id });
+    const thread = await this.fetchThread({ id: this.id });
 
     // fetch the user
-    this.$store.dispatch('fetchUser', { id: thread.userId });
+    this.fetchUser({ id: thread.userId });
 
     // fetch the posts
-    const posts = await this.$store.dispatch('fetchPosts', {
+    const posts = await this.fetchPosts({
       ids: thread.posts,
     });
 
     // fetch the users associated with posts
     const userIds = posts.map((post) => post.userId);
-    this.$store.dispatch('fetchUsers', { ids: userIds });
+    this.fetchUsers({ ids: userIds });
   },
   methods: {
+    ...mapActions(['fetchThread', 'fetchPosts', 'fetchUser', 'fetchUsers']),
     addNewPost(eventData) {
       const post = {
         ...eventData.post,
