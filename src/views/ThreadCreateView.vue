@@ -1,5 +1,6 @@
 <script>
 import { findById } from '@/helpers';
+import { mapActions } from 'vuex';
 export default {
   props: {
     forumId: {
@@ -17,18 +18,21 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('fetchForum', {
+    this.fetchForum({
       id: this.forumId,
     });
   },
+
   methods: {
+    ...mapActions(['createThread', 'fetchForum']),
     // dispatch vue action
     async save({ title, text }) {
-      const thread = await this.$store.dispatch('createThread', {
+      const thread = await this.createThread({
         title,
         text,
         forumId: this.forum.id,
       });
+
       this.$router.push({
         name: 'thread',
         params: {
