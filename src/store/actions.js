@@ -2,10 +2,9 @@ import firebase from 'firebase';
 import { findById, randomHex } from '@/helpers';
 
 export default {
-  fetchAllCategories({ commit }) {
-    console.log('🔥', '📠', 'categories');
-
-    return new Promise((resolve) => {
+  fetchAllCategories: ({ commit }) =>
+    new Promise((resolve) => {
+      console.log('🔥', '📠', 'categories');
       firebase
         .firestore()
         .collection('categories')
@@ -13,51 +12,40 @@ export default {
           const categories = querySnapshot.docs.map((doc) => {
             const item = { ...doc.data(), id: doc.id };
             commit('setItem', { resource: 'categories', item });
-
             return item;
           });
           resolve(categories);
         });
-    });
-  },
+    }),
 
-  fetchCategory({ dispatch }, { id }) {
-    return dispatch('fetchItem', { resource: 'categories', id, emoji: '📠' });
-  },
+  fetchCategory: ({ dispatch }, { id }) =>
+    dispatch('fetchItem', { resource: 'categories', id, emoji: '📠' }),
 
-  fetchThread({ dispatch }, { id }) {
-    return dispatch('fetchItem', { resource: 'threads', id, emoji: '📄' });
-  },
+  fetchThread: ({ dispatch }, { id }) =>
+    dispatch('fetchItem', { resource: 'threads', id, emoji: '📄' }),
 
-  fetchThreads({ dispatch }, { ids }) {
-    return dispatch('fetchItems', { resource: 'threads', ids, emoji: '📄' });
-  },
+  fetchThreads: ({ dispatch }, { ids }) =>
+    dispatch('fetchItems', { resource: 'threads', ids, emoji: '📄' }),
 
-  fetchForum({ dispatch }, { id }) {
-    return dispatch('fetchItem', { resource: 'forums', id, emoji: '📕' });
-  },
+  fetchForum: ({ dispatch }, { id }) =>
+    dispatch('fetchItem', { resource: 'forums', id, emoji: '📕' }),
 
-  fetchForums({ dispatch }, { ids }) {
-    return dispatch('fetchItems', { resource: 'forums', ids, emoji: '📕' });
-  },
+  fetchForums: ({ dispatch }, { ids }) =>
+    dispatch('fetchItems', { resource: 'forums', ids, emoji: '📕' }),
 
-  fetchUser({ dispatch }, { id }) {
-    return dispatch('fetchItem', { resource: 'users', id, emoji: '🙋‍♂️' });
-  },
+  fetchUser: ({ dispatch }, { id }) =>
+    dispatch('fetchItem', { resource: 'users', id, emoji: '🙋‍♂️' }),
 
-  fetchUsers({ dispatch }, { ids }) {
-    return dispatch('fetchItems', { resource: 'users', ids, emoji: '🙋‍♂️' });
-  },
+  fetchUsers: ({ dispatch }, { ids }) =>
+    dispatch('fetchItems', { resource: 'users', ids, emoji: '🙋‍♂️' }),
 
-  fetchPost({ dispatch }, { id }) {
-    return dispatch('fetchItem', { resource: 'posts', id, emoji: '💭' });
-  },
+  fetchPost: ({ dispatch }, { id }) =>
+    dispatch('fetchItem', { resource: 'posts', id, emoji: '💭' }),
 
-  fetchPosts({ dispatch }, { ids }) {
-    return dispatch('fetchItems', { resource: 'posts', ids, emoji: '💭' });
-  },
+  fetchPosts: ({ dispatch }, { ids }) =>
+    dispatch('fetchItems', { resource: 'posts', ids, emoji: '💭' }),
 
-  createPost({ commit, state }, post) {
+  createPost: ({ commit, state }, post) => {
     post.id = randomHex(10);
     post.userId = state.authId;
     post.publishedAt = Math.floor(Date.now() / 1000);
@@ -72,7 +60,10 @@ export default {
     });
   },
 
-  async createThread({ commit, state, dispatch }, { text, title, forumId }) {
+  createThread: async (
+    { commit, state, dispatch },
+    { text, title, forumId }
+  ) => {
     const id = randomHex(10);
     const userId = state.authId;
     const publishedAt = Math.floor(Date.now() / 1000);
@@ -94,7 +85,7 @@ export default {
     return findById(state.threads, id);
   },
 
-  async updateThread({ commit, state }, { title, text, id }) {
+  updateThread: async ({ commit, state }, { title, text, id }) => {
     const thread = findById(state.threads, id);
 
     const post = findById(state.posts, thread.posts[0]).text;
@@ -119,14 +110,12 @@ export default {
     return newThread;
   },
 
-  updateUser(context, user) {
-    context.commit('setUser', { user, userId: user.id });
-  },
+  updateUser: (context, user) =>
+    context.commit('setUser', { user, userId: user.id }),
 
-  fetchItem({ state, commit }, { id, emoji, resource }) {
-    console.log('🔥', emoji, `${resource}-id: ${id}`);
-    // fetch the item
-    return new Promise((resolve) => {
+  fetchItem: ({ state, commit }, { id, emoji, resource }) =>
+    new Promise((resolve) => {
+      console.log('🔥', emoji, `${resource}-id: ${id}`);
       firebase
         .firestore()
         .collection(resource)
@@ -136,13 +125,10 @@ export default {
           commit('setItem', { resource, id, item });
           resolve(item);
         });
-    });
-  },
+    }),
 
-  fetchItems({ dispatch }, { ids, resource, emoji }) {
-    console.log('🔥', emoji, `${resource}-ids: ${ids}`);
-    return Promise.all(
+  fetchItems: ({ dispatch }, { ids, resource, emoji }) =>
+    Promise.all(
       ids.map((id) => dispatch('fetchItem', { id, resource, emoji }))
-    );
-  },
+    ),
 };
