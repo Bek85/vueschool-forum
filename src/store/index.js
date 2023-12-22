@@ -61,8 +61,8 @@ export default createStore({
       return dispatch('fetchItems', { resource: 'users', ids, emoji: '🙋‍♂️' });
     },
 
-    fetchPost({ dispatch }, { ids }) {
-      return dispatch('fetchItems', { resource: 'posts', ids, emoji: '💭' });
+    fetchPost({ dispatch }, { id }) {
+      return dispatch('fetchItem', { resource: 'posts', id, emoji: '💭' });
     },
 
     fetchPosts({ dispatch }, { ids }) {

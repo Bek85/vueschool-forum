@@ -15,7 +15,8 @@ export default {
       // return this.$store.state.threads.find((thread) => thread.id === this.id);
     },
     text() {
-      return findById(this.$store.state.posts, this.thread.posts[0]).text;
+      const post = findById(this.$store.state.posts, this.thread.posts[0]);
+      return post ? post.text : '';
 
       // const threadText = this.$store.state.posts.find((post) => {
       //   return post.id === this.thread.posts[0];
@@ -24,6 +25,15 @@ export default {
       // return threadText;
     },
   },
+  async created() {
+    const thread = await this.$store.dispatch('fetchThread', {
+      id: this.id,
+    });
+    this.$store.dispatch('fetchPost', {
+      id: thread.posts[0],
+    });
+  },
+
   methods: {
     // dispatch vue action
     async save({ title, text }) {
@@ -53,7 +63,7 @@ export default {
 
 
 <template>
-  <div class="col-full push-top">
+  <div v-if="thread && text" class="col-full push-top">
     <h1>
       Editing <i>{{ thread.title }}</i>
     </h1>
