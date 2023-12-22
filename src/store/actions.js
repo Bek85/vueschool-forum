@@ -51,7 +51,7 @@ export default {
   createPost: async ({ commit, state }, post) => {
     post.id = randomHex(10);
     post.userId = state.authId;
-    post.publishedAt = Math.floor(Date.now() / 1000);
+    post.publishedAt = firebase.firestore.FieldValue.serverTimestamp();
 
     const batch = firebase.firestore().batch();
     const postRef = firebase.firestore().collection('posts').doc();
@@ -67,6 +67,7 @@ export default {
     });
 
     await batch.commit();
+    const newPost = await postRef.get();
 
     // const newPost = await firebase.firestore().collection('posts').add(post);
 
@@ -79,10 +80,10 @@ export default {
     //     contributors: firebase.firestore.FieldValue.arrayUnion(state.authId),
     //   });
 
-    commit('setItem', { resource: 'posts', item: { ...post, id: postRef.id } });
+    commit('setItem', { resource: 'posts', item: { ...post, id: newPost.id } });
 
     commit('appendPostToThread', {
-      childId: postRef.id,
+      childId: newPost.id,
       parentId: post.threadId,
     });
 
