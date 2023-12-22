@@ -1,5 +1,6 @@
 <script>
 import { findById } from '@/helpers';
+import { mapActions } from 'vuex';
 
 export default {
   props: {
@@ -26,18 +27,20 @@ export default {
     },
   },
   async created() {
-    const thread = await this.$store.dispatch('fetchThread', {
+    const thread = await this.fetchThread({
       id: this.id,
     });
-    this.$store.dispatch('fetchPost', {
+
+    this.fetchPost({
       id: thread.posts[0],
     });
   },
 
   methods: {
+    ...mapActions(['updateThread', 'fetchThread', 'fetchPost']),
     // dispatch vue action
     async save({ title, text }) {
-      const thread = await this.$store.dispatch('updateThread', {
+      const thread = await this.updateThread({
         title,
         text,
         id: this.id,
