@@ -28,7 +28,7 @@ export default {
     const thread = await this.fetchThread({ id: this.id });
 
     // fetch the user
-    this.fetchUser({ id: thread.userId });
+    // this.fetchUser({ id: thread.userId });
 
     // fetch the posts
     const posts = await this.fetchPosts({
@@ -36,7 +36,7 @@ export default {
     });
 
     // fetch the users associated with posts
-    const userIds = posts.map((post) => post.userId);
+    const userIds = posts.map((post) => post.userId).concat(thread.userId);
     this.fetchUsers({ ids: userIds });
   },
   methods: {
