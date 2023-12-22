@@ -1,5 +1,7 @@
 <script>
+import { mapActions } from 'vuex';
 import { findById } from '@/helpers';
+
 export default {
   name: 'CategoryView',
   props: {
@@ -18,15 +20,17 @@ export default {
     },
   },
   async created() {
-    const category = await this.$store.dispatch('fetchCategory', {
+    const category = await this.fetchCategory({
       id: this.id,
     });
 
-    this.$store.dispatch('fetchForums', {
+    this.fetchForums({
       ids: category.forums,
     });
   },
   methods: {
+    ...mapActions(['fetchCategory', 'fetchForums']),
+
     getForumsForCategory(category) {
       return this.$store.state.forums.filter(
         (forum) => forum.categoryId === category.id
