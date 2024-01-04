@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import sourceData from '@/data.json';
-import { findById } from '@/helpers';
+// import sourceData from '@/data.json';
+// import { findById } from '@/helpers';
 
 const routes = [
   {
