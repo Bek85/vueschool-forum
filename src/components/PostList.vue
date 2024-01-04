@@ -53,7 +53,7 @@ export default {
           class="link-unstyled"
           title="Make a change"
         >
-          <FontAwesomeIcon icon="pencil" />
+          <Fa icon="pencil" />
         </a>
       </div>
       <div class="post-date text-faded">
