@@ -20,3 +20,9 @@ export const upsert = (collection, item) => {
     collection.push(item);
   }
 };
+
+export const docToResource = (doc) => {
+  if (typeof doc?.data !== 'function') return doc;
+
+  return { ...doc.data(), id: doc.id };
+};
