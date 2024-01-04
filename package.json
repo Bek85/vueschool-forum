@@ -11,6 +11,9 @@
     "format": "prettier .  --write"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/vue-fontawesome": "^3.0.5",
     "dayjs": "^1.11.10",
     "firebase": "8.4.1",
     "vite-plugin-commonjs": "^0.10.1",
