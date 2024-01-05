@@ -102,6 +102,20 @@ export default {
       parentId: post.threadId,
     });
   },
+  updatePost: async ({ commit, state }, { text, id }) => {
+    const post = {
+      text,
+      edited: {
+        at: firebase.firestore.FieldValue.serverTimestamp(),
+        by: state.authId,
+        moderated: false,
+      },
+    };
+    const postRef = firebase.firestore().collection('posts').doc(id);
+    await postRef.update(post);
+    const updatedPost = await postRef.get();
+    commit('setItem', { resource: 'posts', item: updatedPost });
+  },
 
   createThread: async (
     { commit, state, dispatch },
