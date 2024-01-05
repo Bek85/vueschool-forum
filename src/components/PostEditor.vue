@@ -1,10 +1,16 @@
 <script>
 export default {
   name: 'PostEditor',
+  props: {
+    post: {
+      type: Object,
+      default: () => ({ text: null }),
+    },
+  },
   emits: ['save'],
   data() {
     return {
-      text: '',
+      postCopy: { ...this.post },
     };
   },
   computed: {
@@ -17,11 +23,8 @@ export default {
   },
   methods: {
     save() {
-      const post = {
-        text: this.text,
-      };
-      this.$emit('save', { post });
-      this.text = '';
+      this.$emit('save', { post: this.postCopy });
+      this.postCopy = '';
     },
   },
 };
@@ -33,7 +36,7 @@ export default {
       <div class="form-group">
         <textarea
           id=""
-          v-model="text"
+          v-model="postCopy.text"
           class="form-input"
           name=""
           cols="30"
@@ -41,7 +44,9 @@ export default {
         ></textarea>
       </div>
       <div class="form-actions">
-        <button class="btn-blue">Submit post</button>
+        <button class="btn-blue">
+          {{ post.id ? 'Update Post' : 'Submit Post' }}
+        </button>
       </div>
     </form>
   </div>

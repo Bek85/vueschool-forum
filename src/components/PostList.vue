@@ -8,6 +8,12 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      editing: null,
+    };
+  },
+
   computed: {
     users() {
       return this.$store.state.users;
@@ -16,6 +22,9 @@ export default {
   methods: {
     userById(userId) {
       return this.$store.getters.user(userId);
+    },
+    toggleEditMode(id) {
+      this.editing = id === this.editing ? null : id;
     },
   },
 };
@@ -42,16 +51,19 @@ export default {
         </p>
       </div>
       <div class="post-content">
-        <div>
-          <p>
+        <div class="col-full">
+          <PostEditor v-if="editing === post.id" :post="post" />
+          <p v-else>
             {{ post.text }}
           </p>
         </div>
+
         <a
           href="#"
           style="margin-left: auto; padding-left: 10px"
           class="link-unstyled"
           title="Make a change"
+          @click.prevent="toggleEditMode(post.id)"
         >
           <Fa icon="pencil" />
         </a>
