@@ -70,6 +70,11 @@ const routes = [
     component: () => import('@/views/ProfileView.vue'),
     props: { edit: true },
   },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('@/views/RegisterView.vue'),
+  },
 
   {
     path: '/:pathMatch(.*)*',
