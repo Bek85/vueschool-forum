@@ -1,9 +1,11 @@
 <script>
 import { mapActions } from 'vuex';
 import { findById } from '@/helpers';
+import asyncDataStatus from '@/mixins/asyncDataStatus';
 
 export default {
   name: 'ForumView',
+  mixins: [asyncDataStatus],
   props: {
     id: {
       type: String,
@@ -33,9 +35,10 @@ export default {
       ids: forum.threads,
     });
 
-    this.fetchUsers({
+    await this.fetchUsers({
       ids: threads.map((thread) => thread.userId),
     });
+    this.asyncDataStatus_fetched();
   },
 
   methods: {
@@ -46,21 +49,23 @@ export default {
 
 
 <template>
-  <div v-if="forum" class="col-full push-top">
-    <div class="forum-header">
-      <div class="forum-details">
-        <h1>{{ forum.name }}</h1>
-        <p class="text-lead">{{ forum.description }}</p>
+  <div v-if="asyncDataStatus_ready" class="col-full">
+    <div v-if="forum" class="col-full push-top">
+      <div class="forum-header">
+        <div class="forum-details">
+          <h1>{{ forum.name }}</h1>
+          <p class="text-lead">{{ forum.description }}</p>
+        </div>
+        <RouterLink
+          :to="{ name: 'threadCreate', params: { forumId: forum.id } }"
+          class="btn-green btn-small"
+          >Start a thread</RouterLink
+        >
       </div>
-      <RouterLink
-        :to="{ name: 'threadCreate', params: { forumId: forum.id } }"
-        class="btn-green btn-small"
-        >Start a thread</RouterLink
-      >
     </div>
-  </div>
 
-  <div class="col-full push-top">
-    <ThreadList :threads="threads" />
+    <div class="col-full push-top">
+      <ThreadList :threads="threads" />
+    </div>
   </div>
 </template>

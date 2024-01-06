@@ -1,9 +1,11 @@
 <script>
 import { mapActions } from 'vuex';
 import { findById } from '@/helpers';
+import asyncDataStatus from '@/mixins/asyncDataStatus';
 
 export default {
   name: 'CategoryView',
+  mixins: [asyncDataStatus],
   props: {
     id: {
       type: String,
@@ -24,9 +26,10 @@ export default {
       id: this.id,
     });
 
-    this.fetchForums({
+    await this.fetchForums({
       ids: category.forums,
     });
+    this.asyncDataStatus_fetched();
   },
   methods: {
     ...mapActions(['fetchCategory', 'fetchForums']),
@@ -41,6 +44,11 @@ export default {
 </script>
 
 <template>
-  <h1>{{ category.name }}</h1>
-  <ForumList :title="category.name" :forums="getForumsForCategory(category)" />
+  <div v-if="asyncDataStatus_ready" class="container col-full">
+    <h1>{{ category.name }}</h1>
+    <ForumList
+      :title="category.name"
+      :forums="getForumsForCategory(category)"
+    />
+  </div>
 </template>

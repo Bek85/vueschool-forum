@@ -1,7 +1,10 @@
 <script>
 import { mapActions } from 'vuex';
+import asyncDataStatus from '@/mixins/asyncDataStatus';
+
 export default {
   name: 'ThreadView',
+  mixins: [asyncDataStatus],
   props: {
     id: {
       type: String,
@@ -37,7 +40,9 @@ export default {
 
     // fetch the users associated with posts
     const userIds = posts.map((post) => post.userId).concat(thread.userId);
-    this.fetchUsers({ ids: userIds });
+    await this.fetchUsers({ ids: userIds });
+
+    this.asyncDataStatus_fetched();
   },
   methods: {
     ...mapActions(['fetchThread', 'fetchPosts', 'fetchUser', 'fetchUsers']),
@@ -54,7 +59,7 @@ export default {
 
 
 <template>
-  <div class="col-large push-top">
+  <div v-if="asyncDataStatus_ready" class="col-large push-top">
     <h1>
       {{ thread.title }}
 
