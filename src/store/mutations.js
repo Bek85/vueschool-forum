@@ -5,6 +5,14 @@ export default {
     upsert(state[resource], docToResource(item));
   },
 
+  appendUnsubscribe(state, { unsubscribe }) {
+    state.unsubscribes.push(unsubscribe);
+  },
+
+  clearAllUnsubscribes(state) {
+    state.unsubscribes = [];
+  },
+
   setPost(state, { post }) {
     upsert(state.posts, post);
   },

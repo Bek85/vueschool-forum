@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import store from '@/store';
 // import sourceData from '@/data.json';
 // import { findById } from '@/helpers';
 
@@ -86,6 +87,10 @@ const router = createRouter({
     if (to.meta.smoothScroll) scroll.behavior = 'smooth';
     return scroll;
   },
+});
+
+router.beforeEach(() => {
+  store.dispatch('unsubscribeAllSnapshots');
 });
 
 export default router;

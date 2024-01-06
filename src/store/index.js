@@ -11,6 +11,7 @@ export default createStore({
     posts: [],
     users: [],
     authId: 'ALXhxjwgY9PinwNGHpfai6OWyDu2',
+    unsubscribes: [],
   },
   actions,
   mutations,
