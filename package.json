@@ -2,13 +2,13 @@
   "name": "vueschool-forum",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
-    "format": "prettier .  --write"
+    "format": "prettier .  --write",
+    "db:seed": "firebase firestore:delete --all-collections && node firestoreImport"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
