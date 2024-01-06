@@ -36,8 +36,14 @@ export default {
   fetchUser: ({ dispatch }, { id }) =>
     dispatch('fetchItem', { resource: 'users', id, emoji: '🙋‍♂️' }),
 
-  fetchAuthUser: ({ dispatch, state }) =>
-    dispatch('fetchItem', { resource: 'users', id: state.authId, emoji: '🙋‍♂️' }),
+  fetchAuthUser: ({ dispatch, state, commit }) => {
+    const userId = firebase.auth().currentUser?.uid;
+    if (!userId) return;
+
+    commit('setAuthId', userId);
+
+    dispatch('fetchItem', { resource: 'users', id: state.authId, emoji: '🙋‍♂️' });
+  },
 
   fetchUsers: ({ dispatch }, { ids }) =>
     dispatch('fetchItems', { resource: 'users', ids, emoji: '🙋‍♂️' }),
@@ -211,13 +217,15 @@ export default {
       .auth()
       .createUserWithEmailAndPassword(email, password);
 
-    dispatch('createUser', {
+    await dispatch('createUser', {
       id: result.user.uid,
       email,
       name,
       username,
       avatar,
     });
+
+    // await dispatch('fetchAuthUser');
   },
 
   createUser: async (
