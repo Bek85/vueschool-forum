@@ -203,7 +203,27 @@ export default {
     return docToResource(newThread);
   },
 
-  createUser: async ({ commit }, { email, name, username, avatar = null }) => {
+  registerUserWithEmailAndPassword: async (
+    { dispatch },
+    { avatar = null, email, name, username, password }
+  ) => {
+    const result = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password);
+
+    dispatch('createUser', {
+      id: result.user.uid,
+      email,
+      name,
+      username,
+      avatar,
+    });
+  },
+
+  createUser: async (
+    { commit },
+    { id, email, name, username, avatar = null }
+  ) => {
     const registeredAt = firebase.firestore.FieldValue.serverTimestamp();
     const usernameLower = username.toLowerCase();
     email = email.toLowerCase();
@@ -216,7 +236,7 @@ export default {
       registeredAt,
     };
 
-    const userRef = await firebase.firestore().collection('users').doc();
+    const userRef = await firebase.firestore().collection('users').doc(id);
 
     userRef.set(user);
     const newUser = await userRef.get();
