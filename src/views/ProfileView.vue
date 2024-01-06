@@ -9,8 +9,13 @@ export default {
       default: false,
     },
   },
+  emits: ['ready'],
   computed: {
     ...mapGetters({ user: 'authUser' }),
+  },
+
+  created() {
+    this.$emit('ready');
   },
 };
 </script>
