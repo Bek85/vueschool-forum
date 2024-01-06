@@ -24,7 +24,7 @@ export default {
   <TheNavbar />
   <div class="container">
     <RouterView v-show="showPage" @ready="showPage = true" />
-    <div v-show="!showPage" class="push-top">Loading...</div>
+    <AppSpinner v-show="!showPage" class="push-top" />
   </div>
 </template>
 
