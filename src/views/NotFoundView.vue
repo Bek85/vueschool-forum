@@ -1,6 +1,11 @@
 <script>
 export default {
   name: 'NotFoundView',
+  emits: ['ready'],
+
+  created() {
+    this.$emit('ready');
+  },
 };
 </script>
 
