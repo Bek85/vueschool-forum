@@ -1,8 +1,8 @@
 export default {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
+  apiKey: 'AIzaSyBsTNOq-OVojPgVudxRxeOKOWs0efT7XQ4',
+  authDomain: 'vue-school-forum-689f8.firebaseapp.com',
+  projectId: 'vue-school-forum-689f8',
+  storageBucket: 'vue-school-forum-689f8.appspot.com',
+  messagingSenderId: '826004134296',
+  appId: '1:826004134296:web:477a15ca69c318ee2673ed',
 };
