@@ -6,7 +6,9 @@ import firebase from '@/helpers/firebase';
 import firebaseConfig from '@/config/firebase';
 import fontawesome from '@/plugins/fontawesome';
 
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     store.dispatch('fetchAuthUser');
