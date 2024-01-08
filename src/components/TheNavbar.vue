@@ -3,6 +3,11 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'TheNavbar',
+  data() {
+    return {
+      userDropdownOpen: false,
+    };
+  },
   computed: {
     ...mapGetters(['authUser']),
   },
@@ -26,7 +31,10 @@ export default {
     <nav class="navbar">
       <ul>
         <li v-if="authUser" class="navbar-user">
-          <RouterLink :to="{ name: 'profile' }">
+          <a
+            :to="{ name: 'profile' }"
+            @click.prevent="userDropdownOpen = !userDropdownOpen"
+          >
             <img
               class="avatar-small"
               :src="authUser.avatar"
@@ -40,23 +48,23 @@ export default {
                 alt=""
               />
             </span>
-          </RouterLink>
+          </a>
 
           <!-- dropdown menu -->
           <!-- add class "active-drop" to show the dropdown -->
-          <div id="user-dropdown">
+          <div id="user-dropdown" :class="{ 'active-drop': userDropdownOpen }">
             <div class="triangle-drop"></div>
             <ul class="dropdown-menu">
               <li class="dropdown-menu-item">
-                <a href="profile.html">View profile</a>
+                <RouterLink :to="{ name: 'profile' }">View profile</RouterLink>
               </li>
-              <li class="dropdown-menu-item"><a href="#">Log out</a></li>
+              <li class="dropdown-menu-item">
+                <a @click.prevent="$store.dispatch('signOut')"> Sign Out</a>
+              </li>
             </ul>
           </div>
         </li>
-        <li v-if="authUser" class="navbar-item">
-          <a @click.prevent="$store.dispatch('signOut')"> Sign Out</a>
-        </li>
+
         <li v-if="!authUser" class="navbar-item">
           <RouterLink :to="{ name: 'signIn' }">Sign In</RouterLink>
         </li>
