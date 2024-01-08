@@ -26,6 +26,10 @@ export default {
 
       this.$router.push('/');
     },
+    async registerWithGoogle() {
+      await this.$store.dispatch('signInWithGoogle');
+      this.$router.push({ name: 'home' });
+    },
   },
 };
 </script>
@@ -86,7 +90,7 @@ export default {
         </div>
       </form>
       <div class="text-center push-top">
-        <button class="btn-red btn-xsmall">
+        <button class="btn-red btn-xsmall" @click="registerWithGoogle">
           <i class="fa fa-google fa-btn"></i>Sign up with Google
         </button>
       </div>
