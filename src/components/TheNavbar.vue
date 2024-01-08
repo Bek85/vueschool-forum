@@ -54,6 +54,15 @@ export default {
             </ul>
           </div>
         </li>
+        <li v-if="authUser" class="navbar-item">
+          <a @click.prevent="$store.dispatch('signOut')"> Sign Out</a>
+        </li>
+        <li v-if="!authUser" class="navbar-item">
+          <RouterLink :to="{ name: 'signIn' }">Sign In</RouterLink>
+        </li>
+        <li v-if="!authUser" class="navbar-item">
+          <RouterLink :to="{ name: 'register' }">Register</RouterLink>
+        </li>
       </ul>
 
       <!-- <ul>

@@ -77,6 +77,12 @@ const routes = [
   },
 
   {
+    path: '/signin',
+    name: 'signIn',
+    component: () => import('@/views/SignInView.vue'),
+  },
+
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('@/views/NotFoundView.vue'),

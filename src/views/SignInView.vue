@@ -1,6 +1,7 @@
 <script>
 export default {
   name: 'SignIn',
+  emits: ['ready'],
   data() {
     return {
       form: {
@@ -8,6 +9,21 @@ export default {
         password: '',
       },
     };
+  },
+  created() {
+    this.$emit('ready');
+  },
+  methods: {
+    async signIn() {
+      try {
+        await this.$store.dispatch('signInWithEmailAndPassword', {
+          ...this.form,
+        });
+        this.$router.push({ name: 'home' });
+      } catch (error) {
+        alert(error.message);
+      }
+    },
   },
 };
 </script>

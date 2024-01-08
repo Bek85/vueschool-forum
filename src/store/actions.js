@@ -228,6 +228,15 @@ export default {
     // await dispatch('fetchAuthUser');
   },
 
+  signInWithEmailAndPassword: async (commit, { email, password }) => {
+    return firebase.auth().signInWithEmailAndPassword(email, password);
+  },
+
+  signOut: async ({ commit }) => {
+    await firebase.auth().signOut();
+    commit('setAuthId', null);
+  },
+
   createUser: async (
     { commit },
     { id, email, name, username, avatar = null }
