@@ -5,6 +5,10 @@ export default {
     state.authId = id;
   },
 
+  setAuthUserUnsubscribe(state, unsubscribe) {
+    state.authUserUnsubscribe = unsubscribe;
+  },
+
   setItem(state, { resource, item }) {
     upsert(state[resource], docToResource(item));
   },
