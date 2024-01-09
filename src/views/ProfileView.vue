@@ -1,15 +1,8 @@
 <script>
 import { mapGetters } from 'vuex';
-import store from '@/store';
 
 export default {
   name: 'ProfileView',
-
-  beforeRouteEnter() {
-    if (!store.state.authId) return { name: 'home' };
-  },
-  beforeRouteUpdate() {},
-  beforeRouteLeave() {},
 
   props: {
     edit: {

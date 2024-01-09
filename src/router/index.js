@@ -63,6 +63,9 @@ const routes = [
     name: 'profile',
     component: () => import('@/views/ProfileView.vue'),
     meta: { toTop: true, smoothScroll: true },
+    beforeEnter() {
+      if (!store.state.authId) return { name: 'home' };
+    },
   },
   {
     path: '/me/edit',
@@ -80,6 +83,14 @@ const routes = [
     path: '/signin',
     name: 'signIn',
     component: () => import('@/views/SignInView.vue'),
+  },
+  {
+    path: '/logout',
+    name: 'signOut',
+    async beforeEnter(to, from) {
+      await store.dispatch('signOut');
+      return { name: 'home' };
+    },
   },
 
   {
