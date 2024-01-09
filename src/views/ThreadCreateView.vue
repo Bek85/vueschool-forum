@@ -5,11 +5,26 @@ import asyncDataStatus from '@/mixins/asyncDataStatus';
 
 export default {
   mixins: [asyncDataStatus],
+
+  beforeRouteLeave() {
+    if (this.formIsDirty) {
+      const confirmed = window.confirm(
+        'Are you sure you want to leave? Unsaved changes will be lost!'
+      );
+      if (!confirmed) return false;
+    }
+  },
   props: {
     forumId: {
       type: String,
       required: true,
     },
+  },
+
+  data() {
+    return {
+      formIsDirty: false,
+    };
   },
   computed: {
     forum() {
@@ -63,6 +78,11 @@ export default {
       Create new thread in <i>{{ forum.name }}</i>
     </h1>
 
-    <ThreadEditor :forum-id="forum.id" @save="save" @cancel="cancel" />
+    <ThreadEditor
+      @save="save"
+      @cancel="cancel"
+      @dirty="formIsDirty = true"
+      @clean="formIsDirty = false"
+    />
   </div>
 </template>
