@@ -42,12 +42,14 @@ const routes = [
     name: 'threadCreate',
     component: () => import('@/views/ThreadCreateView.vue'),
     props: true,
+    meta: { requiresAuth: true },
   },
   {
     path: '/thread/:id/edit',
     name: 'threadEdit',
     component: () => import('@/views/ThreadEditView.vue'),
     props: true,
+    meta: { requiresAuth: true },
   },
   {
     path: '/category/:id',
@@ -75,6 +77,7 @@ const routes = [
     name: 'profileEdit',
     component: () => import('@/views/ProfileView.vue'),
     props: { edit: true },
+    meta: { requiresAuth: true },
   },
   {
     path: '/register',
