@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { findById } from '@/helpers';
 import asyncDataStatus from '@/mixins/asyncDataStatus';
 
@@ -13,6 +13,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['authUser']),
     forum() {
       return findById(this.$store.state.forums, this.id);
       // return this.$store.state.forums.find((forum) => forum.id === this.id);
@@ -57,6 +58,7 @@ export default {
           <p class="text-lead">{{ forum.description }}</p>
         </div>
         <RouterLink
+          v-if="authUser"
           :to="{ name: 'threadCreate', params: { forumId: forum.id } }"
           class="btn-green btn-small"
           >Start a thread</RouterLink

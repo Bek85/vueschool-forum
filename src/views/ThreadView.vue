@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import asyncDataStatus from '@/mixins/asyncDataStatus';
 
 export default {
@@ -13,6 +13,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['authUser']),
     threads() {
       return this.$store.state.threads;
     },
@@ -64,6 +65,7 @@ export default {
       {{ thread.title }}
 
       <RouterLink
+        v-if="thread.userId === authUser?.id"
         :to="{ name: 'threadEdit', id: id }"
         class="btn-green btn-small"
         >Edit Thread</RouterLink
@@ -81,7 +83,16 @@ export default {
     </p>
 
     <PostList :posts="threadPosts" />
-    <PostEditor @save="addNewPost" />
+    <PostEditor v-if="authUser" @save="addNewPost" />
+    <div v-else class="text-center" style="margin-bottom: 50px">
+      <RouterLink :to="{ name: 'signIn', query: { redirectTo: $route.path } }"
+        >Sign In</RouterLink
+      >
+      or
+      <RouterLink :to="{ name: 'register', query: { redirectTo: $route.path } }"
+        >Register</RouterLink
+      >
+    </div>
   </div>
 </template>
 
