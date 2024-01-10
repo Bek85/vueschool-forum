@@ -51,6 +51,9 @@ const routes = [
     name: 'category',
     component: () => import('@/views/CategoryView.vue'),
     props: true,
+    // meta: {
+    //   requiresAuth: true,
+    // },
   },
   {
     path: '/forum/:id',
@@ -62,10 +65,7 @@ const routes = [
     path: '/me',
     name: 'profile',
     component: () => import('@/views/ProfileView.vue'),
-    meta: { toTop: true, smoothScroll: true },
-    beforeEnter() {
-      if (!store.state.authId) return { name: 'home' };
-    },
+    meta: { toTop: true, smoothScroll: true, requiresAuth: true },
   },
   {
     path: '/me/edit',
@@ -111,8 +111,12 @@ const router = createRouter({
   },
 });
 
-router.beforeEach(() => {
+router.beforeEach((to, from) => {
+  console.log(`🔥 🚦 navigating to ${to.name} from ${from.name}`);
   store.dispatch('unsubscribeAllSnapshots');
+  if (to.meta.requiresAuth && !store.state.authId) {
+    return { name: 'home' };
+  }
 });
 
 export default router;
