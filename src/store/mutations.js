@@ -9,6 +9,10 @@ export default {
     state.authUserUnsubscribe = unsubscribe;
   },
 
+  setAuthObserverUnsubscribe(state, unsubscribe) {
+    state.authObserverUnsubscribe = unsubscribe;
+  },
+
   setItem(state, { resource, item }) {
     upsert(state[resource], docToResource(item));
   },

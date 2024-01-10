@@ -2,6 +2,24 @@ import firebase from '@/helpers/firebase';
 import { docToResource, findById } from '@/helpers';
 
 export default {
+  initAuthentication: ({ dispatch, commit, state }) => {
+    if (state.authObserverUnsubscribe) state.authObserverUnsubscribe();
+
+    return new Promise((resolve) => {
+      const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
+        console.log('👤 the user has changed');
+        dispatch('unsubscribeAuthUserSnapshot');
+        if (user) {
+          await dispatch('fetchAuthUser');
+          resolve(user);
+        } else {
+          resolve(null);
+        }
+      });
+      commit('setAuthObserverUnsubscribe', unsubscribe);
+    });
+  },
+
   fetchAllCategories: ({ commit }) =>
     new Promise((resolve) => {
       console.log('🔥', '📠', 'categories');
@@ -36,13 +54,13 @@ export default {
   fetchUser: ({ dispatch }, { id }) =>
     dispatch('fetchItem', { resource: 'users', id, emoji: '🙋‍♂️' }),
 
-  fetchAuthUser: ({ dispatch, commit }) => {
+  fetchAuthUser: async ({ dispatch, commit }) => {
     const userId = firebase.auth().currentUser?.uid;
     if (!userId) return;
 
     commit('setAuthId', userId);
 
-    dispatch('fetchItem', {
+    await dispatch('fetchItem', {
       resource: 'users',
       id: userId,
       emoji: '🙋‍♂️',
