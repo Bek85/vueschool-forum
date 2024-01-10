@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import store from '@/store';
-// import sourceData from '@/data.json';
 import { findById } from '@/helpers';
 
 const routes = [
@@ -83,12 +82,14 @@ const routes = [
     path: '/register',
     name: 'register',
     component: () => import('@/views/RegisterView.vue'),
+    meta: { requiresGuest: true },
   },
 
   {
     path: '/signin',
     name: 'signIn',
     component: () => import('@/views/SignInView.vue'),
+    meta: { requiresGuest: true },
   },
   {
     path: '/logout',
@@ -122,6 +123,10 @@ router.beforeEach(async (to, from) => {
   console.log(`🔥 🚦 navigating to ${to.name} from ${from.name}`);
   store.dispatch('unsubscribeAllSnapshots');
   if (to.meta.requiresAuth && !store.state.authId) {
+    return { name: 'signIn' };
+  }
+
+  if (to.meta.requiresGuest && store.state.authId) {
     return { name: 'home' };
   }
 });
