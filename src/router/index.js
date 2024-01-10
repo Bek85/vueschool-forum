@@ -123,7 +123,7 @@ router.beforeEach(async (to, from) => {
   console.log(`🔥 🚦 navigating to ${to.name} from ${from.name}`);
   store.dispatch('unsubscribeAllSnapshots');
   if (to.meta.requiresAuth && !store.state.authId) {
-    return { name: 'signIn' };
+    return { name: 'signIn', query: { redirectTo: to.path } };
   }
 
   if (to.meta.requiresGuest && store.state.authId) {
