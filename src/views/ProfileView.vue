@@ -1,8 +1,10 @@
 <script>
 import { mapGetters } from 'vuex';
+import asyncDataStatus from '@/mixins/asyncDataStatus';
 
 export default {
   name: 'ProfileView',
+  mixins: [asyncDataStatus],
 
   props: {
     edit: {
@@ -15,17 +17,17 @@ export default {
     ...mapGetters({ user: 'authUser' }),
   },
 
-  created() {
-    this.$emit('ready');
+  async created() {
+    await this.$store.dispatch('fetchAuthUsersPosts');
+    this.asyncDataStatus_fetched();
   },
 };
 </script>
 
 
 <template>
-  <div class="container">
-    <h1>My Profile</h1>
-    <!-- <div class="flex-grid">
+  <div class="container" style="width: 100%">
+    <div class="flex-grid">
       <div class="col-3 push-top">
         <UserProfileCard v-if="!edit" :user="user" />
         <UserProfileCardEditor v-else :user="user" />
@@ -44,6 +46,6 @@ export default {
 
         <PostList :posts="user.posts" />
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
