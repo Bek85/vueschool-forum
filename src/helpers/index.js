@@ -11,13 +11,13 @@ export const findById = (collection, id) => {
   return collection.find((item) => item.id === id);
 };
 
-export const upsert = (collection, item) => {
-  const index = collection.findIndex((i) => i.id === item.id);
+export const upsert = (resources, resource) => {
+  const index = resources.items.findIndex((i) => i.id === resource.id);
 
-  if (item.id && index !== -1) {
-    collection[index] = item;
+  if (resource.id && index !== -1) {
+    resources.items[index] = resource;
   } else {
-    collection.push(item);
+    resources.items.push(resource);
   }
 };
 

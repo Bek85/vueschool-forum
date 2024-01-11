@@ -15,7 +15,7 @@ export default {
   computed: {
     ...mapGetters(['authUser']),
     forum() {
-      return findById(this.$store.state.forums, this.id);
+      return findById(this.$store.state.forums.items, this.id);
       // return this.$store.state.forums.find((forum) => forum.id === this.id);
     },
     threads() {

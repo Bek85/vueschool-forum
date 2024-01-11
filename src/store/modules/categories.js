@@ -18,6 +18,7 @@ export default {
               commit('setItem', { resource: 'categories', item });
               return item;
             });
+
             resolve(categories);
           });
       }),

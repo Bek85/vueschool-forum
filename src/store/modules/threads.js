@@ -3,7 +3,6 @@ import {
   docToResource,
   findById,
   makeAppendChildToParentMutation,
-  upsert,
 } from '@/helpers';
 
 export default {
@@ -125,9 +124,9 @@ export default {
       dispatch('fetchItems', { resource: 'threads', ids, emoji: '📄' }),
   },
   mutations: {
-    setThread(state, { thread }) {
-      upsert(state.items, thread);
-    },
+    // setThread(state, { thread }) {
+    //   upsert(state.items, thread);
+    // },
     appendPostToThread: makeAppendChildToParentMutation({
       parent: 'threads',
       child: 'posts',
