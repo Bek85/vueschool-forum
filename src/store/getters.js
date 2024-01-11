@@ -17,7 +17,7 @@ export default {
           return state.posts.filter((post) => post.userId === user.id);
         },
         get threads() {
-          return state.threads.filter((thread) => thread.userId === user.id);
+          return state.items.filter((thread) => thread.userId === user.id);
         },
         get postsCount() {
           return user.postsCount || 0;
@@ -25,25 +25,6 @@ export default {
 
         get threadsCount() {
           return user.threads?.length || 0;
-        },
-      };
-    };
-  },
-
-  thread: (state) => {
-    return (id) => {
-      const thread = findById(state.threads, id);
-      if (!thread) return {};
-      return {
-        ...thread,
-        get author() {
-          return findById(state.users, thread.userId);
-        },
-        get repliesCount() {
-          return thread.posts.length - 1;
-        },
-        get contributorsCount() {
-          return thread.contributors.length;
         },
       };
     };

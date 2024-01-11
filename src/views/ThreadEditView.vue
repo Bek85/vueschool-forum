@@ -13,9 +13,9 @@ export default {
   },
   computed: {
     thread() {
-      return findById(this.$store.state.threads, this.id);
+      return findById(this.$store.state.items, this.id);
 
-      // return this.$store.state.threads.find((thread) => thread.id === this.id);
+      // return this.$store.state.items.find((thread) => thread.id === this.id);
     },
     text() {
       const post = findById(this.$store.state.posts, this.thread.posts[0]);

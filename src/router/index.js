@@ -16,7 +16,7 @@ const routes = [
     beforeEnter: async (to, from, next) => {
       await store.dispatch('fetchThread', { id: to.params.id });
       // check if thread exists
-      const threadExists = findById(store.state.threads, to.params.id);
+      const threadExists = findById(store.state.items, to.params.id);
 
       console.log(threadExists);
 
