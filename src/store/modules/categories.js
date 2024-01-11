@@ -16,7 +16,11 @@ export default {
           .onSnapshot((querySnapshot) => {
             const categories = querySnapshot.docs.map((doc) => {
               const item = { ...doc.data(), id: doc.id };
-              commit('setItem', { resource: 'categories', item });
+              commit(
+                'setItem',
+                { resource: 'categories', item },
+                { root: true }
+              );
               return item;
             });
 
@@ -25,10 +29,18 @@ export default {
       }),
 
     fetchCategory: ({ dispatch }, { id }) =>
-      dispatch('fetchItem', { resource: 'categories', id, emoji: '📠' }),
+      dispatch(
+        'fetchItem',
+        { resource: 'categories', id, emoji: '📠' },
+        { root: true }
+      ),
 
     fetchCategories: ({ dispatch }, { ids }) =>
-      dispatch('fetchItems', { resource: 'categories', ids, emoji: ';🐛' }),
+      dispatch(
+        'fetchItems',
+        { resource: 'categories', ids, emoji: ';🐛' },
+        { root: true }
+      ),
   },
   mutations: {},
 };
