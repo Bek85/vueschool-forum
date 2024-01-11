@@ -8,10 +8,18 @@ export default {
   getters: {},
   actions: {
     fetchForum: ({ dispatch }, { id }) =>
-      dispatch('fetchItem', { resource: 'forums', id, emoji: '📕' }),
+      dispatch(
+        'fetchItem',
+        { resource: 'forums', id, emoji: '📕' },
+        { root: true }
+      ),
 
     fetchForums: ({ dispatch }, { ids }) =>
-      dispatch('fetchItems', { resource: 'forums', ids, emoji: '📕' }),
+      dispatch(
+        'fetchItems',
+        { resource: 'forums', ids, emoji: '📕' },
+        { root: true }
+      ),
   },
   mutations: {
     appendThreadToForum: makeAppendChildToParentMutation({

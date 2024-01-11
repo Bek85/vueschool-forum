@@ -8,14 +8,22 @@ export default {
   getters: {},
   actions: {
     fetchPost: ({ dispatch }, { id }) =>
-      dispatch('fetchItem', { resource: 'posts', id, emoji: '💭' }),
+      dispatch(
+        'fetchItem',
+        { resource: 'posts', id, emoji: '💭' },
+        { root: true }
+      ),
 
     fetchPosts: ({ dispatch }, { ids }) =>
-      dispatch('fetchItems', { resource: 'posts', ids, emoji: '💭' }),
+      dispatch(
+        'fetchItems',
+        { resource: 'posts', ids, emoji: '💭' },
+        { root: true }
+      ),
 
-    createPost: async ({ commit, state }, post) => {
+    createPost: async ({ commit, state, rootState }, post) => {
       // post.id = randomHex(10);
-      // post.userId = state.authId;
+      post.userId = rootState.auth.authId;
       post.publishedAt = firebase.firestore.FieldValue.serverTimestamp();
 
       const batch = firebase.firestore().batch();
@@ -28,7 +36,7 @@ export default {
       const userRef = firebase
         .firestore()
         .collection('users')
-        .doc(state.authId);
+        .doc(rootState.auth.authId);
 
       batch.set(postRef, post);
 
@@ -55,34 +63,50 @@ export default {
       //     contributors: firebase.firestore.FieldValue.arrayUnion(state.authId),
       //   });
 
-      commit('setItem', {
-        resource: 'posts',
-        item: { ...newPost.data(), id: newPost.id },
-      });
+      commit(
+        'setItem',
+        {
+          resource: 'posts',
+          item: { ...newPost.data(), id: newPost.id },
+        },
+        { root: true }
+      );
 
-      commit('appendPostToThread', {
-        childId: newPost.id,
-        parentId: post.threadId,
-      });
+      commit(
+        'threads/appendPostToThread',
+        {
+          childId: newPost.id,
+          parentId: post.threadId,
+        },
+        { root: true }
+      );
 
-      commit('appendContributorToThread', {
-        childId: state.authId,
-        parentId: post.threadId,
-      });
+      commit(
+        'threads/appendContributorToThread',
+        {
+          childId: rootState.auth.authId,
+          parentId: post.threadId,
+        },
+        { root: true }
+      );
     },
-    updatePost: async ({ commit, state }, { text, id }) => {
+    updatePost: async ({ commit, state, rootState }, { text, id }) => {
       const post = {
         text,
         edited: {
           at: firebase.firestore.FieldValue.serverTimestamp(),
-          by: state.authId,
+          by: rootState.auth.authId,
           moderated: false,
         },
       };
       const postRef = firebase.firestore().collection('posts').doc(id);
       await postRef.update(post);
       const updatedPost = await postRef.get();
-      commit('setItem', { resource: 'posts', item: updatedPost });
+      commit(
+        'setItem',
+        { resource: 'posts', item: updatedPost },
+        { root: true }
+      );
     },
   },
   mutations: {},
