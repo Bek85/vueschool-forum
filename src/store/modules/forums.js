@@ -1,6 +1,7 @@
 import { makeAppendChildToParentMutation } from '@/helpers';
 
 export default {
+  namespaced: true,
   state: {
     items: [],
   },

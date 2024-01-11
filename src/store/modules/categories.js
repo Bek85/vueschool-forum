@@ -1,6 +1,7 @@
 import firebase from '@/helpers/firebase';
 
 export default {
+  namespaced: true,
   state: {
     items: [],
   },

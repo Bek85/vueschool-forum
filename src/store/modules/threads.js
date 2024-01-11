@@ -6,6 +6,7 @@ import {
 } from '@/helpers';
 
 export default {
+  namespaced: true,
   state: {
     items: [],
   },

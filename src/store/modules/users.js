@@ -2,6 +2,7 @@ import firebase from '@/helpers/firebase';
 import { findById, makeAppendChildToParentMutation } from '@/helpers';
 
 export default {
+  namespaced: true,
   state: {
     items: [],
   },
