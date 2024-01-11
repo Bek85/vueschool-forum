@@ -1,4 +1,4 @@
-import firebase from '@/config/firebase';
+import firebase from '@/helpers/firebase';
 import {
   docToResource,
   findById,
