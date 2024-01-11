@@ -1,5 +1,9 @@
 import firebase from '@/helpers/firebase';
-import { findById, makeAppendChildToParentMutation } from '@/helpers';
+import {
+  docToResource,
+  findById,
+  makeAppendChildToParentMutation,
+} from '@/helpers';
 
 export default {
   namespaced: true,
@@ -7,7 +11,7 @@ export default {
     items: [],
   },
   getters: {
-    user: (state) => {
+    user: (state, getters, rootState) => {
       return (id) => {
         const user = findById(state.items, id);
 
@@ -16,10 +20,14 @@ export default {
         return {
           ...user,
           get posts() {
-            return state.posts.filter((post) => post.userId === user.id);
+            return rootState.posts.items.filter(
+              (post) => post.userId === user.id
+            );
           },
           get threads() {
-            return state.items.filter((thread) => thread.userId === user.id);
+            return rootState.threads.items.filter(
+              (thread) => thread.userId === user.id
+            );
           },
           get postsCount() {
             return user.postsCount || 0;
@@ -53,7 +61,7 @@ export default {
 
       userRef.set(user);
       const newUser = await userRef.get();
-      commit('setItem', { resource: 'users', item: newUser });
+      commit('setItem', { resource: 'users', item: newUser }, { root: true });
 
       return docToResource(newUser);
     },
@@ -73,14 +81,26 @@ export default {
 
       await userRef.update(updates);
 
-      context.commit('setItem', { resource: 'users', item: user });
+      context.commit(
+        'setItem',
+        { resource: 'users', item: user },
+        { root: true }
+      );
     },
 
     fetchUser: ({ dispatch }, { id }) =>
-      dispatch('fetchItem', { resource: 'users', id, emoji: '🙋‍♂️' }),
+      dispatch(
+        'fetchItem',
+        { resource: 'users', id, emoji: '🙋‍♂️' },
+        { root: true }
+      ),
 
     fetchUsers: ({ dispatch }, { ids }) =>
-      dispatch('fetchItems', { resource: 'users', ids, emoji: '🙋‍♂️' }),
+      dispatch(
+        'fetchItems',
+        { resource: 'users', ids, emoji: '🙋‍♂️' },
+        { root: true }
+      ),
   },
   mutations: {
     appendThreadToUser: makeAppendChildToParentMutation({
