@@ -32,7 +32,8 @@ export default {
     this.asyncDataStatus_fetched();
   },
   methods: {
-    ...mapActions(['fetchCategory', 'fetchForums']),
+    ...mapActions('categories', ['fetchCategory']),
+    ...mapActions('forums', ['fetchForums']),
 
     getForumsForCategory(category) {
       return this.$store.state.forums.items.filter(

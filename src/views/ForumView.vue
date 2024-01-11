@@ -13,7 +13,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['authUser']),
+    ...mapGetters('auth', ['authUser']),
     forum() {
       return findById(this.$store.state.forums.items, this.id);
       // return this.$store.state.forums.find((forum) => forum.id === this.id);
@@ -21,7 +21,7 @@ export default {
     threads() {
       if (!this.forum) return [];
       return this.forum.threads.map((threadId) =>
-        this.$store.getters.thread(threadId)
+        this.$store.getters['threads/thread'](threadId)
       );
       // return this.$store.state.items;
       // return this.$store.state.items.filter(
@@ -43,7 +43,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchForum', 'fetchThreads', 'fetchUsers']),
+    ...mapActions('forums', ['fetchForum']),
+    ...mapActions('threads', ['fetchThreads']),
+    ...mapActions('users', ['fetchUsers']),
   },
 };
 </script>

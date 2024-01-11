@@ -14,11 +14,11 @@ export default {
   },
   emits: ['ready'],
   computed: {
-    ...mapGetters({ user: 'authUser' }),
+    ...mapGetters({ user: 'auth/authUser' }),
   },
 
   async created() {
-    await this.$store.dispatch('fetchAuthUsersPosts');
+    await this.$store.dispatch('auth/fetchAuthUsersPosts');
     this.asyncDataStatus_fetched();
   },
 };

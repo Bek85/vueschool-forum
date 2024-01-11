@@ -15,10 +15,10 @@ export default {
   },
   computed: {
     threads() {
-      return this.$store.state.items;
+      return this.$store.state.threads.items;
     },
     posts() {
-      return this.$store.state.posts;
+      return this.$store.state.posts.items;
     },
   },
   methods: {

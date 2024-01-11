@@ -21,7 +21,8 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchAllCategories', 'fetchForums']),
+    ...mapActions('categories', ['fetchAllCategories', 'fetchForums']),
+    ...mapActions('forums', ['fetchForums']),
   },
 };
 </script>
