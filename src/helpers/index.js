@@ -12,12 +12,12 @@ export const findById = (collection, id) => {
 };
 
 export const upsert = (resources, resource) => {
-  const index = resources.items.findIndex((i) => i.id === resource.id);
+  const index = resources.findIndex((i) => i.id === resource.id);
 
   if (resource.id && index !== -1) {
-    resources.items[index] = resource;
+    resources[index] = resource;
   } else {
-    resources.items.push(resource);
+    resources.push(resource);
   }
 };
 
@@ -29,7 +29,7 @@ export const docToResource = (doc) => {
 
 export const makeAppendChildToParentMutation = ({ parent, child }) => {
   return (state, { childId, parentId }) => {
-    const resource = findById(state[parent], parentId);
+    const resource = findById(state.items, parentId);
 
     if (!resource) {
       console.warn(
