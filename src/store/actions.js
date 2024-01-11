@@ -320,8 +320,23 @@ export default {
     return docToResource(newUser);
   },
 
-  updateUser: (context, user) =>
-    context.commit('setUser', { user, userId: user.id }),
+  updateUser: async (context, user) => {
+    const updates = {
+      avatar: user.avatar || null,
+      username: user.username || null,
+      name: user.name || null,
+      bio: user.bio || null,
+      website: user.website || null,
+      email: user.email || null,
+      location: user.location || null,
+    };
+
+    const userRef = firebase.firestore().collection('users').doc(user.id);
+
+    await userRef.update(updates);
+
+    context.commit('setItem', { resource: 'users', item: user });
+  },
 
   fetchItem: ({ commit }, { id, emoji, resource, handleUnsubscribe = null }) =>
     new Promise((resolve) => {
