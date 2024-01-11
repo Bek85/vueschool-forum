@@ -37,14 +37,4 @@ export default {
   setUser(state, { user }) {
     upsert(state.users, user);
   },
-
-  appendThreadToForum: makeAppendChildToParentMutation({
-    parent: 'forums',
-    child: 'threads',
-  }),
-
-  appendThreadToUser: makeAppendChildToParentMutation({
-    parent: 'users',
-    child: 'threads',
-  }),
 };
