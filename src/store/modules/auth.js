@@ -9,8 +9,8 @@ export default {
     authObserverUnsubscribe: null,
   },
   getters: {
-    authUser: (state, getters) => {
-      return getters.user(state.authId);
+    authUser: (state, getters, rootState, rootGetters) => {
+      return rootGetters['users/user'](state.authId);
     },
   },
   actions: {
@@ -43,7 +43,7 @@ export default {
         id: userId,
         emoji: '🙋‍♂️',
         handleUnsubscribe: (unsubscribe) => {
-          commit('setAuthUserUnsubscribe', unsubscribe);
+          commit('setAuthUserUnsubscribe', unsubscribe, { root: true });
         },
       });
     },
@@ -56,13 +56,17 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(email, password);
 
-      await dispatch('createUser', {
-        id: result.user.uid,
-        email,
-        name,
-        username,
-        avatar,
-      });
+      await dispatch(
+        'users/createUser',
+        {
+          id: result.user.uid,
+          email,
+          name,
+          username,
+          avatar,
+        },
+        { root: true }
+      );
 
       // await dispatch('fetchAuthUser');
     },
@@ -81,19 +85,36 @@ export default {
       const userDoc = await userRef.get();
 
       if (!userDoc.exists) {
-        return dispatch('createUser', {
-          id: user.uid,
-          name: user.displayName,
-          email: user.email,
-          username: user.email,
-          avatar: user.photoURL,
-        });
+        return dispatch(
+          'users/createUser',
+          {
+            id: user.uid,
+            name: user.displayName,
+            email: user.email,
+            username: user.email,
+            avatar: user.photoURL,
+          },
+          { root: true }
+        );
       }
     },
 
     signOut: async ({ commit }) => {
       await firebase.auth().signOut();
       commit('setAuthId', null);
+    },
+
+    fetchAuthUsersPosts: async ({ commit, state }) => {
+      const posts = await firebase
+        .firestore()
+        .collection('posts')
+        .where('userId', '==', state.authId)
+        .get();
+      console.log(posts);
+
+      posts.forEach((item) => {
+        commit('setItem', { resource: 'posts', item }, { root: true });
+      });
     },
     unsubscribeAuthUserSnapshot: async ({ state, commit }) => {
       if (state.authUserUnsubscribe) {

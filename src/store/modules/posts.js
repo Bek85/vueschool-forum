@@ -13,19 +13,6 @@ export default {
     fetchPosts: ({ dispatch }, { ids }) =>
       dispatch('fetchItems', { resource: 'posts', ids, emoji: '💭' }),
 
-    fetchAuthUsersPosts: async ({ commit, state }) => {
-      const posts = await firebase
-        .firestore()
-        .collection('posts')
-        .where('userId', '==', state.authId)
-        .get();
-      console.log(posts);
-
-      posts.forEach((item) => {
-        commit('setItem', { resource: 'posts', item });
-      });
-    },
-
     createPost: async ({ commit, state }, post) => {
       // post.id = randomHex(10);
       // post.userId = state.authId;
