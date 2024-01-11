@@ -1,23 +1,6 @@
-import {
-  docToResource,
-  findById,
-  makeAppendChildToParentMutation,
-  upsert,
-} from '@/helpers';
+import { docToResource, upsert } from '@/helpers';
 
 export default {
-  setAuthId(state, id) {
-    state.authId = id;
-  },
-
-  setAuthUserUnsubscribe(state, unsubscribe) {
-    state.authUserUnsubscribe = unsubscribe;
-  },
-
-  setAuthObserverUnsubscribe(state, unsubscribe) {
-    state.authObserverUnsubscribe = unsubscribe;
-  },
-
   setItem(state, { resource, item }) {
     upsert(state[resource], docToResource(item));
   },
@@ -28,13 +11,5 @@ export default {
 
   clearAllUnsubscribes(state) {
     state.unsubscribes = [];
-  },
-
-  setPost(state, { post }) {
-    upsert(state.posts, post);
-  },
-
-  setUser(state, { user }) {
-    upsert(state.users, user);
   },
 };
