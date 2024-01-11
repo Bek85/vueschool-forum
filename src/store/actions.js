@@ -20,25 +20,6 @@ export default {
     });
   },
 
-  fetchAllCategories: ({ commit }) =>
-    new Promise((resolve) => {
-      console.log('🔥', '📠', 'categories');
-      firebase
-        .firestore()
-        .collection('categories')
-        .onSnapshot((querySnapshot) => {
-          const categories = querySnapshot.docs.map((doc) => {
-            const item = { ...doc.data(), id: doc.id };
-            commit('setItem', { resource: 'categories', item });
-            return item;
-          });
-          resolve(categories);
-        });
-    }),
-
-  fetchCategory: ({ dispatch }, { id }) =>
-    dispatch('fetchItem', { resource: 'categories', id, emoji: '📠' }),
-
   fetchForum: ({ dispatch }, { id }) =>
     dispatch('fetchItem', { resource: 'forums', id, emoji: '📕' }),
 
