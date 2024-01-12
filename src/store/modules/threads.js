@@ -32,13 +32,14 @@ export default {
   },
   actions: {
     createThread: async (
-      { commit, state, dispatch },
+      { commit, state, dispatch, rootState },
       { text, title, forumId }
     ) => {
-      const userId = state.authId;
+      const userId = rootState.auth.authId;
       const publishedAt = firebase.firestore.FieldValue.serverTimestamp();
 
       const threadRef = firebase.firestore().collection('threads').doc();
+      console.log(threadRef.id);
 
       const thread = {
         forumId,
@@ -98,10 +99,10 @@ export default {
 
       return findById(state.items, threadRef.id);
     },
-    updateThread: async ({ commit, state }, { title, text, id }) => {
+    updateThread: async ({ commit, state, rootState }, { title, text, id }) => {
       const thread = findById(state.items, id);
 
-      const post = findById(state.posts, thread.posts[0]);
+      const post = findById(rootState.posts.items, thread.posts[0]);
 
       let newThread = {
         ...thread,

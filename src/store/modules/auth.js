@@ -38,14 +38,18 @@ export default {
 
       commit('setAuthId', userId);
 
-      await dispatch('fetchItem', {
-        resource: 'users',
-        id: userId,
-        emoji: '🙋‍♂️',
-        handleUnsubscribe: (unsubscribe) => {
-          commit('setAuthUserUnsubscribe', unsubscribe, { root: true });
+      await dispatch(
+        'fetchItem',
+        {
+          resource: 'users',
+          id: userId,
+          emoji: '🙋‍♂️',
+          handleUnsubscribe: (unsubscribe) => {
+            commit('setAuthUserUnsubscribe', unsubscribe);
+          },
         },
-      });
+        { root: true }
+      );
     },
 
     registerUserWithEmailAndPassword: async (

@@ -13,12 +13,15 @@ export default {
   },
   computed: {
     thread() {
-      return findById(this.$store.state.items, this.id);
+      return findById(this.$store.state.threads.items, this.id);
 
       // return this.$store.state.items.find((thread) => thread.id === this.id);
     },
     text() {
-      const post = findById(this.$store.state.posts, this.thread.posts[0]);
+      const post = findById(
+        this.$store.state.posts.items,
+        this.thread.posts[0]
+      );
       return post ? post.text : '';
 
       // const threadText = this.$store.state.posts.find((post) => {
@@ -40,7 +43,8 @@ export default {
   },
 
   methods: {
-    ...mapActions(['updateThread', 'fetchThread', 'fetchPost']),
+    ...mapActions('threads', ['updateThread', 'fetchThread']),
+    ...mapActions('posts', ['fetchPost']),
     // dispatch vue action
     async save({ title, text }) {
       const thread = await this.updateThread({

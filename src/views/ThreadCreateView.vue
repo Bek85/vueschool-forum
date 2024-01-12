@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     forum() {
-      return findById(this.$store.state.forums, this.forumId);
+      return findById(this.$store.state.forums.items, this.forumId);
       // return this.$store.state.forums.find(
       //   (forum) => forum.id === this.forumId
       // );
@@ -43,7 +43,8 @@ export default {
   },
 
   methods: {
-    ...mapActions(['createThread', 'fetchForum']),
+    ...mapActions('threads', ['createThread']),
+    ...mapActions('forums', ['fetchForum']),
     // dispatch vue action
     async save({ title, text }) {
       const thread = await this.createThread({

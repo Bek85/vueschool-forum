@@ -14,7 +14,7 @@ export default {
   },
   emits: ['ready'],
   computed: {
-    ...mapGetters({ user: 'auth/authUser' }),
+    ...mapGetters('auth', { user: 'authUser' }),
   },
 
   async created() {
