@@ -24,6 +24,7 @@ export default {
   <header
     id="header"
     v-click-outside="() => (mobileNavMenu = false)"
+    v-page-scroll="() => (mobileNavMenu = false)"
     class="header"
   >
     <RouterLink :to="{ name: 'home' }" class="logo">
