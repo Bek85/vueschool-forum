@@ -5,6 +5,7 @@ import store from '@/store';
 import firebase from '@/helpers/firebase';
 import firebaseConfig from '@/config/firebase';
 import fontawesome from '@/plugins/fontawesome';
+import ClickOutsideDirective from '@/plugins/ClickOutsideDirective';
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -12,6 +13,7 @@ firebase.initializeApp(firebaseConfig);
 const app = createApp(Root);
 
 app.config.globalProperties.console = console;
+app.use(ClickOutsideDirective);
 app.use(fontawesome);
 app.use(router);
 app.use(store);

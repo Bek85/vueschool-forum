@@ -32,6 +32,7 @@ export default {
       <ul>
         <li v-if="authUser" class="navbar-user">
           <a
+            v-click-outside="() => (userDropdownOpen = false)"
             :to="{ name: 'profile' }"
             @click.prevent="userDropdownOpen = !userDropdownOpen"
           >
