@@ -15,10 +15,6 @@ export default {
   computed: {
     category() {
       return findById(this.$store.state.categories.items, this.id) || {};
-
-      // return this.$store.state.categories.find(
-      //   (category) => category.id === this.id
-      // );
     },
   },
   async created() {

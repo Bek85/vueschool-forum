@@ -14,8 +14,6 @@ export default {
   computed: {
     thread() {
       return findById(this.$store.state.threads.items, this.id);
-
-      // return this.$store.state.items.find((thread) => thread.id === this.id);
     },
     text() {
       const post = findById(
@@ -23,12 +21,6 @@ export default {
         this.thread.posts[0]
       );
       return post ? post.text : '';
-
-      // const threadText = this.$store.state.posts.find((post) => {
-      //   return post.id === this.thread.posts[0];
-      // }).text;
-
-      // return threadText;
     },
   },
   async created() {

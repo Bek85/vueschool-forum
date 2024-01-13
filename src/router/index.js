@@ -18,8 +18,6 @@ const routes = [
       // check if thread exists
       const threadExists = findById(store.state.threads.items, to.params.id);
 
-      console.log(threadExists);
-
       // if exists continue
       if (threadExists) {
         return next();

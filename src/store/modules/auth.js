@@ -3,7 +3,6 @@ import firebase from '@/helpers/firebase';
 export default {
   namespaced: true,
   state: {
-    // authId: '38St7Q8Zi2N1SPa5ahzssq9kbyp1',
     authId: null,
     authUserUnsubscribe: null,
     authObserverUnsubscribe: null,
@@ -71,8 +70,6 @@ export default {
         },
         { root: true }
       );
-
-      // await dispatch('fetchAuthUser');
     },
 
     signInWithEmailAndPassword: async (commit, { email, password }) => {
@@ -114,7 +111,6 @@ export default {
         .collection('posts')
         .where('userId', '==', state.authId)
         .get();
-      console.log(posts);
 
       posts.forEach((item) => {
         commit('setItem', { resource: 'posts', item }, { root: true });

@@ -23,10 +23,6 @@ export default {
       return this.forum.threads.map((threadId) =>
         this.$store.getters['threads/thread'](threadId)
       );
-      // return this.$store.state.items;
-      // return this.$store.state.items.filter(
-      //   (thread) => thread.forumId === this.id
-      // );
     },
   },
   async created() {

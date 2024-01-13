@@ -41,7 +41,6 @@ export default {
       const publishedAt = firebase.firestore.FieldValue.serverTimestamp();
 
       const threadRef = firebase.firestore().collection('threads').doc();
-      console.log(threadRef.id);
 
       const thread = {
         forumId,
@@ -156,9 +155,6 @@ export default {
       ),
   },
   mutations: {
-    // setThread(state, { thread }) {
-    //   upsert(state.items, thread);
-    // },
     appendPostToThread: makeAppendChildToParentMutation({
       parent: 'threads',
       child: 'posts',

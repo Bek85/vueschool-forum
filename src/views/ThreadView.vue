@@ -31,9 +31,6 @@ export default {
     // fetch the thread
     const thread = await this.fetchThread({ id: this.id });
 
-    // fetch the user
-    // this.fetchUser({ id: thread.userId });
-
     // fetch the posts
     const posts = await this.fetchPosts({
       ids: thread.posts,

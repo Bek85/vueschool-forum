@@ -29,9 +29,6 @@ export default {
   computed: {
     forum() {
       return findById(this.$store.state.forums.items, this.forumId);
-      // return this.$store.state.forums.find(
-      //   (forum) => forum.id === this.forumId
-      // );
     },
   },
 

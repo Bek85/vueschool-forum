@@ -53,17 +53,6 @@ export default {
       await batch.commit();
       const newPost = await postRef.get();
 
-      // const newPost = await firebase.firestore().collection('posts').add(post);
-
-      // await firebase
-      //   .firestore()
-      //   .collection('threads')
-      //   .doc(post.threadId)
-      //   .update({
-      //     posts: firebase.firestore.FieldValue.arrayUnion(newPost.id),
-      //     contributors: firebase.firestore.FieldValue.arrayUnion(state.authId),
-      //   });
-
       commit(
         'setItem',
         {
