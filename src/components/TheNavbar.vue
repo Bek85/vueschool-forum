@@ -6,21 +6,31 @@ export default {
   data() {
     return {
       userDropdownOpen: false,
+      mobileNavMenu: false,
     };
   },
   computed: {
     ...mapGetters('auth', ['authUser']),
   },
+  created() {
+    this.$router.beforeEach((to, from) => {
+      this.mobileNavMenu = false;
+    });
+  },
 };
 </script>
 
 <template>
-  <header id="header" class="header">
+  <header
+    id="header"
+    v-click-outside="() => (mobileNavMenu = false)"
+    class="header"
+  >
     <RouterLink :to="{ name: 'home' }" class="logo">
       <img src="@/assets/svg/vueschool-logo.svg" />
     </RouterLink>
 
-    <div class="btn-hamburger">
+    <div class="btn-hamburger" @click="mobileNavMenu = !mobileNavMenu">
       <!-- use .btn-humburger-active to open the menu -->
       <div class="top bar"></div>
       <div class="middle bar"></div>
@@ -28,7 +38,7 @@ export default {
     </div>
 
     <!-- use .navbar-open to open nav -->
-    <nav class="navbar">
+    <nav class="navbar" :class="{ 'navbar-open': mobileNavMenu }">
       <ul>
         <li v-if="authUser" class="navbar-user">
           <a
@@ -60,7 +70,12 @@ export default {
                 <RouterLink :to="{ name: 'profile' }">View profile</RouterLink>
               </li>
               <li class="dropdown-menu-item">
-                <a @click.prevent="$store.dispatch('auth/signOut')">
+                <a
+                  @click.prevent="
+                    $store.dispatch('auth/signOut'),
+                      $router.push({ name: 'home' })
+                  "
+                >
                   Sign Out</a
                 >
               </li>
@@ -73,6 +88,18 @@ export default {
         </li>
         <li v-if="!authUser" class="navbar-item">
           <RouterLink :to="{ name: 'register' }">Register</RouterLink>
+        </li>
+        <li v-if="authUser" class="navbar-mobile-item">
+          <RouterLink :to="{ name: 'profile' }">View profile</RouterLink>
+        </li>
+        <li v-if="authUser" class="navbar-mobile-item">
+          <a
+            @click.prevent="
+              $store.dispatch('auth/signOut'), $router.push({ name: 'home' })
+            "
+          >
+            Sign Out</a
+          >
         </li>
       </ul>
 
