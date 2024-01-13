@@ -48,8 +48,8 @@ export default {
   methods: {
     ...mapActions('threads', ['fetchThread']),
     ...mapActions('posts', ['fetchPosts']),
-    ...mapActions('users', ['fetchUser']),
-    ...mapActions('users', ['fetchUsers']),
+    ...mapActions('users', ['fetchUser', 'fetchUsers']),
+
     addNewPost(eventData) {
       const post = {
         ...eventData.post,

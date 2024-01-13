@@ -26,10 +26,13 @@ export default {
       }
     }),
 
-  fetchItems: ({ dispatch }, { ids, resource, emoji }) =>
-    Promise.all(
+  fetchItems: ({ dispatch }, { ids, resource, emoji }) => {
+    ids = ids || [];
+
+    return Promise.all(
       ids.map((id) => dispatch('fetchItem', { id, resource, emoji }))
-    ),
+    );
+  },
 
   unsubscribeAllSnapshots: async ({ state, commit }) => {
     state.unsubscribes.forEach((unsubscribe) => unsubscribe());

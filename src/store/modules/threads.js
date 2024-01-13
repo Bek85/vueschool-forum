@@ -21,9 +21,11 @@ export default {
             return findById(rootState.users.items, thread.userId);
           },
           get repliesCount() {
+            if (!thread.posts) return 0;
             return thread.posts.length - 1;
           },
           get contributorsCount() {
+            if (!thread.contributors) return 0;
             return thread.contributors.length;
           },
         };

@@ -22,7 +22,6 @@ export default {
       ),
 
     createPost: async ({ commit, state, rootState }, post) => {
-      // post.id = randomHex(10);
       post.userId = rootState.auth.authId;
       post.publishedAt = firebase.firestore.FieldValue.serverTimestamp();
 
@@ -42,7 +41,9 @@ export default {
 
       batch.update(threadRef, {
         posts: firebase.firestore.FieldValue.arrayUnion(postRef.id),
-        contributors: firebase.firestore.FieldValue.arrayUnion(state.authId),
+        contributors: firebase.firestore.FieldValue.arrayUnion(
+          rootState.auth.authId
+        ),
       });
 
       batch.update(userRef, {
@@ -90,6 +91,7 @@ export default {
         { root: true }
       );
     },
+
     updatePost: async ({ commit, state, rootState }, { text, id }) => {
       const post = {
         text,
