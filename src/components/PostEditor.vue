@@ -24,7 +24,7 @@ export default {
   methods: {
     save() {
       this.$emit('save', { post: this.postCopy });
-      this.postCopy = '';
+      this.postCopy.text = '';
     },
   },
 };

@@ -14,6 +14,7 @@ firebase.initializeApp(firebaseConfig);
 const app = createApp(Root);
 
 app.config.globalProperties.console = console;
+
 app.use(ClickOutsideDirective);
 app.use(PageScrollDirective);
 app.use(fontawesome);

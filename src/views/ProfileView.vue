@@ -15,10 +15,22 @@ export default {
   emits: ['ready'],
   computed: {
     ...mapGetters('auth', { user: 'authUser' }),
+    lastPostFetched() {
+      if (this.user.posts.length === 0) return null;
+      return this.user.posts[this.user.posts.length - 1];
+    },
   },
 
   async created() {
-    await this.$store.dispatch('auth/fetchAuthUsersPosts');
+    await this.$store.dispatch('auth/fetchAuthUsersPosts', {
+      startAfter: this.lastPostFetched,
+    });
+
+    setTimeout(() => {
+      this.$store.dispatch('auth/fetchAuthUsersPosts', {
+        startAfter: this.lastPostFetched,
+      });
+    }, 2000);
     this.asyncDataStatus_fetched();
   },
 };
