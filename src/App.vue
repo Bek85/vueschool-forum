@@ -36,7 +36,11 @@ export default {
 <template>
   <TheNavbar />
   <div class="container">
-    <RouterView v-show="showPage" :key="$route.path" @ready="onPageReady" />
+    <RouterView
+      v-show="showPage"
+      :key="`{$route.path}${JSON.stringify($route.query)}`"
+      @ready="onPageReady"
+    />
     <AppSpinner v-show="!showPage" class="push-top" />
   </div>
 </template>
