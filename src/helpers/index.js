@@ -42,3 +42,13 @@ export const makeAppendChildToParentMutation = ({ parent, child }) => {
     if (!resource[child].includes(childId)) resource[child].push(childId);
   };
 };
+
+export const makeFetchItemAction = ({ emoji, resource }) => {
+  return ({ dispatch }, payload) =>
+    dispatch('fetchItem', { resource, emoji, ...payload }, { root: true });
+};
+
+export const makeFetchItemsAction = ({ emoji, resource }) => {
+  return ({ dispatch }, payload) =>
+    dispatch('fetchItems', { resource, emoji, ...payload }, { root: true });
+};

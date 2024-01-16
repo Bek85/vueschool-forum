@@ -14,7 +14,10 @@ const routes = [
     component: () => import('@/views/ThreadShow.vue'),
     props: true,
     beforeEnter: async (to, from, next) => {
-      await store.dispatch('threads/fetchThread', { id: to.params.id });
+      await store.dispatch('threads/fetchThread', {
+        id: to.params.id,
+        once: true,
+      });
       // check if thread exists
       const threadExists = findById(store.state.threads.items, to.params.id);
 

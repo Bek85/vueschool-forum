@@ -3,6 +3,8 @@ import {
   docToResource,
   findById,
   makeAppendChildToParentMutation,
+  makeFetchItemAction,
+  makeFetchItemsAction,
 } from '@/helpers';
 import chunk from 'lodash/chunk';
 
@@ -141,19 +143,10 @@ export default {
 
       return docToResource(newThread);
     },
-    fetchThread: ({ dispatch }, { id }) =>
-      dispatch(
-        'fetchItem',
-        { resource: 'threads', id, emoji: '📄' },
-        { root: true }
-      ),
+    fetchThread: makeFetchItemAction({ resource: 'threads', emoji: '📄' }),
 
-    fetchThreads: ({ dispatch }, { ids }) =>
-      dispatch(
-        'fetchItems',
-        { resource: 'threads', ids, emoji: '📄' },
-        { root: true }
-      ),
+    fetchThreads: makeFetchItemsAction({ resource: 'threads', emoji: '📄' }),
+
     fetchThreadsByPage: ({ dispatch, commit }, { ids, page, perPage }) => {
       commit('clearThreads');
       const chunks = chunk(ids, perPage);
