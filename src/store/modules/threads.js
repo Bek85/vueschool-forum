@@ -4,6 +4,7 @@ import {
   findById,
   makeAppendChildToParentMutation,
 } from '@/helpers';
+import chunk from 'lodash/chunk';
 
 export default {
   namespaced: true,
@@ -153,6 +154,12 @@ export default {
         { resource: 'threads', ids, emoji: '📄' },
         { root: true }
       ),
+    fetchThreadsByPage: ({ dispatch, commit }, { ids, page, perPage }) => {
+      commit('clearThreads');
+      const chunks = chunk(ids, perPage);
+      const limitedIds = chunks[page - 1];
+      return dispatch('fetchThreads', { ids: limitedIds });
+    },
   },
   mutations: {
     appendPostToThread: makeAppendChildToParentMutation({
@@ -163,5 +170,9 @@ export default {
       parent: 'threads',
       child: 'contributors',
     }),
+
+    clearThreads(state) {
+      state.items = [];
+    },
   },
 };
