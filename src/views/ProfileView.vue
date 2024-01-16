@@ -22,16 +22,22 @@ export default {
   },
 
   async created() {
-    await this.$store.dispatch('auth/fetchAuthUsersPosts', {
-      startAfter: this.lastPostFetched,
-    });
+    await this.fetchUserPosts();
 
-    setTimeout(() => {
-      this.$store.dispatch('auth/fetchAuthUsersPosts', {
+    // setTimeout(() => {
+    //   this.$store.dispatch('auth/fetchAuthUsersPosts', {
+    //     startAfter: this.lastPostFetched,
+    //   });
+    // }, 2000);
+    this.asyncDataStatus_fetched();
+  },
+
+  methods: {
+    fetchUserPosts() {
+      return this.$store.dispatch('auth/fetchAuthUsersPosts', {
         startAfter: this.lastPostFetched,
       });
-    }, 2000);
-    this.asyncDataStatus_fetched();
+    },
   },
 };
 </script>
@@ -45,7 +51,7 @@ export default {
         <UserProfileCardEditor v-else :user="user" />
 
         <p class="text-xsmall text-faded text-center">
-          Member since june 2003, last visited 4 hours ago
+          Member since December 2023, last visited 1 hour ago
         </p>
       </div>
       <div class="col-7 push-top">
@@ -57,6 +63,10 @@ export default {
         <hr />
 
         <PostList :posts="user.posts" />
+        <AppInfiniteScroll
+          :done="user.posts.length === user.postsCount"
+          @load="fetchUserPosts"
+        />
       </div>
     </div>
   </div>
