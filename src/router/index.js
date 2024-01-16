@@ -6,12 +6,12 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('@/views/HomeView.vue'),
+    component: () => import('@/views/Home.vue'),
   },
   {
     path: '/thread/:id',
     name: 'thread',
-    component: () => import('@/views/ThreadView.vue'),
+    component: () => import('@/views/ThreadShow.vue'),
     props: true,
     beforeEnter: async (to, from, next) => {
       await store.dispatch('threads/fetchThread', { id: to.params.id });
@@ -37,21 +37,21 @@ const routes = [
   {
     path: '/forum/:forumId/thread/create',
     name: 'threadCreate',
-    component: () => import('@/views/ThreadCreateView.vue'),
+    component: () => import('@/views/ThreadCreate.vue'),
     props: true,
     meta: { requiresAuth: true },
   },
   {
     path: '/thread/:id/edit',
     name: 'threadEdit',
-    component: () => import('@/views/ThreadEditView.vue'),
+    component: () => import('@/views/ThreadEdit.vue'),
     props: true,
     meta: { requiresAuth: true },
   },
   {
     path: '/category/:id',
     name: 'category',
-    component: () => import('@/views/CategoryView.vue'),
+    component: () => import('@/views/Category.vue'),
     props: true,
     // meta: {
     //   requiresAuth: true,
@@ -60,33 +60,33 @@ const routes = [
   {
     path: '/forum/:id',
     name: 'forum',
-    component: () => import('@/views/ForumView.vue'),
+    component: () => import('@/views/Forum.vue'),
     props: true,
   },
   {
     path: '/me',
     name: 'profile',
-    component: () => import('@/views/ProfileView.vue'),
+    component: () => import('@/views/Profile.vue'),
     meta: { toTop: true, smoothScroll: true, requiresAuth: true },
   },
   {
     path: '/me/edit',
     name: 'profileEdit',
-    component: () => import('@/views/ProfileView.vue'),
+    component: () => import('@/views/Profile.vue'),
     props: { edit: true },
     meta: { requiresAuth: true },
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/RegisterView.vue'),
+    component: () => import('@/views/Register.vue'),
     meta: { requiresGuest: true },
   },
 
   {
     path: '/signin',
     name: 'signIn',
-    component: () => import('@/views/SignInView.vue'),
+    component: () => import('@/views/SignIn.vue'),
     meta: { requiresGuest: true },
   },
   {
@@ -101,7 +101,7 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
-    component: () => import('@/views/NotFoundView.vue'),
+    component: () => import('@/views/NotFound.vue'),
   },
 ];
 
