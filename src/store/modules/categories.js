@@ -1,3 +1,4 @@
+import { makeFetchItemAction, makeFetchItemsAction } from '@/helpers';
 import firebase from '@/helpers/firebase';
 
 export default {
@@ -28,19 +29,12 @@ export default {
           });
       }),
 
-    fetchCategory: ({ dispatch }, { id }) =>
-      dispatch(
-        'fetchItem',
-        { resource: 'categories', id, emoji: '📠' },
-        { root: true }
-      ),
+    fetchCategory: makeFetchItemAction({ resource: 'categories', emoji: '📠' }),
 
-    fetchCategories: ({ dispatch }, { ids }) =>
-      dispatch(
-        'fetchItems',
-        { resource: 'categories', ids, emoji: ';🐛' },
-        { root: true }
-      ),
+    fetchCategories: makeFetchItemsAction({
+      resource: 'categories',
+      emoji: ';🐛',
+    }),
   },
   mutations: {},
 };

@@ -3,6 +3,8 @@ import {
   docToResource,
   findById,
   makeAppendChildToParentMutation,
+  makeFetchItemAction,
+  makeFetchItemsAction,
 } from '@/helpers';
 
 export default {
@@ -88,19 +90,9 @@ export default {
       );
     },
 
-    fetchUser: ({ dispatch }, { id }) =>
-      dispatch(
-        'fetchItem',
-        { resource: 'users', id, emoji: '🙋‍♂️' },
-        { root: true }
-      ),
+    fetchUser: makeFetchItemAction({ resource: 'users', emoji: '🙋‍♂️' }),
 
-    fetchUsers: ({ dispatch }, { ids }) =>
-      dispatch(
-        'fetchItems',
-        { resource: 'users', ids, emoji: '🙋‍♂️' },
-        { root: true }
-      ),
+    fetchUsers: makeFetchItemsAction({ resource: 'users', emoji: '🙋‍♂️' }),
   },
   mutations: {
     appendThreadToUser: makeAppendChildToParentMutation({

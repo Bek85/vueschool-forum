@@ -1,3 +1,4 @@
+import { makeFetchItemAction, makeFetchItemsAction } from '@/helpers';
 import firebase from '@/helpers/firebase';
 
 export default {
@@ -7,19 +8,9 @@ export default {
   },
   getters: {},
   actions: {
-    fetchPost: ({ dispatch }, { id }) =>
-      dispatch(
-        'fetchItem',
-        { resource: 'posts', id, emoji: '💭' },
-        { root: true }
-      ),
+    fetchPost: makeFetchItemAction({ resource: 'posts', emoji: '💭' }),
 
-    fetchPosts: ({ dispatch }, { ids }) =>
-      dispatch(
-        'fetchItems',
-        { resource: 'posts', ids, emoji: '💭' },
-        { root: true }
-      ),
+    fetchPosts: makeFetchItemsAction({ resource: 'posts', emoji: '💭' }),
 
     createPost: async ({ commit, state, rootState }, post) => {
       post.userId = rootState.auth.authId;
