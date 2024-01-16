@@ -5,7 +5,8 @@
       :key="notification.id"
       class="notification"
     >
-      {{ notification.message }}
+      <span>{{ notification.message }}</span>
+      <button @click="removeNotification(notification.id)">x</button>
     </div>
   </div>
 </template>
@@ -13,7 +14,7 @@
 <script setup>
 import useNotifications from '@/composables/useNotifications';
 
-const { notifications } = useNotifications();
+const { notifications, removeNotification } = useNotifications();
 </script>
 
 <style scoped>

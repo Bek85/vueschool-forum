@@ -12,9 +12,15 @@ const addNotification = (notification) => {
   });
 };
 
+const removeNotification = (id) => {
+  const index = notifications.findIndex((item) => item.id === id);
+  notifications.splice(index, 1);
+};
+
 export default function useNotifications() {
   return {
     notifications,
     addNotification,
+    removeNotification,
   };
 }
