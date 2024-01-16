@@ -43,6 +43,7 @@ export default {
     />
     <AppSpinner v-show="!showPage" class="push-top" />
   </div>
+  <AppNotifications />
 </template>
 
 <style>
