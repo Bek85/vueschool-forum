@@ -1,6 +1,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import asyncDataStatus from '@/mixins/asyncDataStatus';
+import useNotifications from '@/composables/useNotifications';
 
 export default {
   name: 'ThreadView',
@@ -10,6 +11,10 @@ export default {
       type: String,
       required: true,
     },
+  },
+  setup() {
+    const { addNotification } = useNotifications();
+    addNotification({ message: 'Dynamically added test notification' });
   },
 
   computed: {
