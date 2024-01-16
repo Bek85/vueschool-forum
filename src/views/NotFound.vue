@@ -9,7 +9,6 @@ export default {
 };
 </script>
 
-
 <template>
   <div class="not-found">
     <h1>404 Not Found</h1>
@@ -17,7 +16,6 @@ export default {
     <router-link to="{name: 'home'}">Read some cool threads</router-link>
   </div>
 </template>
-
 
 <style scoped>
 .not-found {

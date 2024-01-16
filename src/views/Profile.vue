@@ -42,7 +42,6 @@ export default {
 };
 </script>
 
-
 <template>
   <div class="container" style="width: 100%">
     <div class="flex-grid">

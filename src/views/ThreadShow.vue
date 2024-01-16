@@ -63,7 +63,6 @@ export default {
 };
 </script>
 
-
 <template>
   <div v-if="asyncDataStatus_ready" class="col-large push-top">
     <h1>

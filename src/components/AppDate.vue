@@ -28,7 +28,6 @@ export default {
 };
 </script>
 
-
 <template>
   <span :title="humanFriendlyDate">
     {{ diffForHumans }}

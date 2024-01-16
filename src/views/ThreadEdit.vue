@@ -63,7 +63,6 @@ export default {
 };
 </script>
 
-
 <template>
   <div v-if="asyncDataStatus_fetched" class="col-full push-top">
     <h1>

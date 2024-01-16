@@ -28,7 +28,6 @@ export default {
 };
 </script>
 
-
 <template>
   <div class="col-full">
     <div class="forum-list">
