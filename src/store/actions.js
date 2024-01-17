@@ -1,9 +1,17 @@
+import { findById } from '@/helpers';
 import firebase from '@/helpers/firebase';
 
 export default {
   fetchItem: (
-    { commit },
-    { id, emoji, resource, handleUnsubscribe = null, once = false }
+    { commit, state },
+    {
+      id,
+      emoji,
+      resource,
+      handleUnsubscribe = null,
+      once = false,
+      onSnapshot = null,
+    }
   ) =>
     new Promise((resolve) => {
       console.log('🔥', emoji, `${resource}-id: ${id}`);
@@ -17,7 +25,13 @@ export default {
           }
           if (doc.exists) {
             const item = { ...doc.data(), id: doc.id };
+            let previousItem = findById(state[resource].item, id);
+            previousItem = previousItem ? { ...previousItem } : null;
             commit('setItem', { resource, id, item });
+
+            if (typeof onSnapshot === 'function') {
+              onSnapshot({ item: { ...item }, previousItem });
+            }
 
             resolve(item);
           } else {
@@ -32,11 +46,13 @@ export default {
       }
     }),
 
-  fetchItems: ({ dispatch }, { ids, resource, emoji }) => {
+  fetchItems: ({ dispatch }, { ids, resource, emoji, onSnapshot = null }) => {
     ids = ids || [];
 
     return Promise.all(
-      ids.map((id) => dispatch('fetchItem', { id, resource, emoji }))
+      ids.map((id) =>
+        dispatch('fetchItem', { id, resource, emoji, onSnapshot })
+      )
     );
   },
 

@@ -1,5 +1,4 @@
 import firebase from '@/helpers/firebase';
-import { start } from 'nprogress';
 
 export default {
   namespaced: true,

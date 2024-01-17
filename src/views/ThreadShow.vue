@@ -14,7 +14,7 @@ export default {
   },
   setup() {
     const { addNotification } = useNotifications();
-    addNotification({ message: 'Dynamically added test notification' });
+    return { addNotification };
   },
 
   computed: {
@@ -34,7 +34,13 @@ export default {
   },
   async created() {
     // fetch the thread
-    const thread = await this.fetchThread({ id: this.id });
+    const thread = await this.fetchThread({
+      id: this.id,
+      onSnapshot: () => {
+        if (!this.asyncDataStatus_ready) return;
+        this.addNotification({ message: 'Thread recently updated' });
+      },
+    });
 
     // fetch the posts
     const posts = await this.fetchPosts({
