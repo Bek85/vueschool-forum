@@ -32,7 +32,7 @@ export default {
         .map((thread) => this.$store.getters['threads/thread'](thread.id));
     },
     threadCount() {
-      return this.forum.threads.length;
+      return this.forum.threads?.length;
     },
     totalPages() {
       if (!this.threadCount) return 0;

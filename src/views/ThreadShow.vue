@@ -1,5 +1,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import difference from 'lodash/difference';
 import asyncDataStatus from '@/mixins/asyncDataStatus';
 import useNotifications from '@/composables/useNotifications';
 
@@ -36,26 +37,20 @@ export default {
     // fetch the thread
     const thread = await this.fetchThread({
       id: this.id,
-      onSnapshot: () => {
-        if (!this.asyncDataStatus_ready) return;
+      onSnapshot: ({ isLocal, item, previousItem }) => {
+        if (!this.asyncDataStatus_ready || isLocal) return;
+        const newPostIds = difference(item.posts, previousItem.posts);
+        this.fetchPostsWithUsers(newPostIds);
         this.addNotification({ message: 'Thread recently updated' });
       },
     });
-
-    // fetch the posts
-    const posts = await this.fetchPosts({
-      ids: thread.posts,
-    });
-
-    // fetch the users associated with posts
-    const userIds = posts.map((post) => post.userId).concat(thread.userId);
-    await this.fetchUsers({ ids: userIds });
+    this.fetchPostsWithUsers(thread.posts);
 
     this.asyncDataStatus_fetched();
   },
   methods: {
     ...mapActions('threads', ['fetchThread']),
-    ...mapActions('posts', ['fetchPosts']),
+    ...mapActions('posts', ['fetchPosts', 'createPost']),
     ...mapActions('users', ['fetchUser', 'fetchUsers']),
 
     addNewPost(eventData) {
@@ -63,7 +58,19 @@ export default {
         ...eventData.post,
         threadId: this.id,
       };
-      this.$store.dispatch('posts/createPost', post);
+      this.createPost(post);
+    },
+    async fetchPostsWithUsers(ids) {
+      // fetch the posts
+      const posts = await this.fetchPosts({
+        ids: ids,
+      });
+
+      // fetch the users associated with posts
+      const userIds = posts
+        .map((post) => post.userId)
+        .concat(this.thread.userId);
+      await this.fetchUsers({ ids: userIds });
     },
   },
 };
