@@ -63,7 +63,7 @@ export default {
     async fetchPostsWithUsers(ids) {
       // fetch the posts
       const posts = await this.fetchPosts({
-        ids: ids,
+        ids,
       });
 
       // fetch the users associated with posts

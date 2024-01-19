@@ -48,7 +48,14 @@ export default {
         </div>
 
         <div class="activity">
-          <p class="replies-count">{{ thread.repliesCount }} replies</p>
+          <p class="replies-count">
+            {{ thread.repliesCount }}
+            {{
+              thread.repliesCount > 1 || thread.repliesCount === 0
+                ? 'replies'
+                : 'reply'
+            }}
+          </p>
 
           <img
             class="avatar-medium"
