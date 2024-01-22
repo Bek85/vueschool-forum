@@ -1,4 +1,7 @@
 import firebase from '@/helpers/firebase';
+import useNotifications from '@/composables/useNotifications';
+
+const { addNotification } = useNotifications();
 
 export default {
   namespaced: true,
@@ -80,14 +83,28 @@ export default {
     uploadAvatar: async ({ state }, { authId, file }) => {
       if (!file) return null;
       authId = authId || state.authId;
-      const storageBucket = firebase
-        .storage()
-        .ref()
-        .child(`uploads/${authId}/images/${Date.now()}-${file.name}`);
-      const snapshot = await storageBucket.put(file);
-      const url = await snapshot.ref.getDownloadURL();
 
-      return url;
+      try {
+        const storageBucket = firebase
+          .storage()
+          .ref()
+          .child(`uploads/${authId}/images/${Date.now()}-${file.name}`);
+        const snapshot = await storageBucket.put(file);
+        const url = await snapshot.ref.getDownloadURL();
+        addNotification({
+          message: 'Avatar image uploaded successfully',
+          timeout: 5000,
+          type: 'success',
+        });
+
+        return url;
+      } catch (error) {
+        addNotification({
+          message: 'Error uploading avatar image',
+          timeout: 5000,
+          type: 'error',
+        });
+      }
     },
 
     signInWithEmailAndPassword: async (commit, { email, password }) => {
