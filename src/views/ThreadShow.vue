@@ -45,7 +45,10 @@ export default {
         if (hasNewPosts) {
           this.fetchPostsWithUsers(newPostIds);
         } else {
-          this.addNotification({ message: 'Thread recently updated' });
+          this.addNotification({
+            message: 'Thread recently updated',
+            timeout: 5000,
+          });
         }
       },
     });
@@ -78,7 +81,10 @@ export default {
             (previousItem?.edited && !previousItem?.edited?.at)
           )
             return;
-          this.addNotification({ message: 'Thread recently updated' });
+          this.addNotification({
+            message: 'Thread recently updated',
+            timeout: 5000,
+          });
         },
       });
 
