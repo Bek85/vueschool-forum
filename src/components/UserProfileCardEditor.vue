@@ -41,7 +41,7 @@ export default {
       <p class="text-center avatar-edit">
         <label for="avatar">
           <img
-            :src="currentUser.avatar"
+            :src="currentUser.avatar || '/user-placeholder.png'"
             :alt="user.name + ' profile picture'"
             class="avatar-xlarge img-update"
           />

@@ -49,7 +49,7 @@ export default {
           >
             <img
               class="avatar-small"
-              :src="authUser.avatar"
+              :src="authUser.avatar || '/user-placeholder.png'"
               :alt="`${authUser.name} profile picture`"
             />
             <span>

@@ -45,7 +45,7 @@ export default {
         <a href="#">
           <img
             class="avatar-large"
-            :src="userById(post.userId)?.avatar"
+            :src="userById(post.userId)?.avatar || '/user-placeholder.png'"
             alt=""
           />
         </a>

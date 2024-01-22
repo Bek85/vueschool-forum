@@ -14,7 +14,7 @@ export default {
   <div class="profile-card">
     <p class="text-center">
       <img
-        :src="user.avatar"
+        :src="user.avatar || '/user-placeholder.png'"
         :alt="`${user.name} profile pitcutre`"
         class="avatar-xlarge"
       />

@@ -74,17 +74,16 @@ export default {
       const posts = await this.fetchPosts({
         ids,
         onSnapshot: ({ isLocal, previousItem }) => {
-          console.log(isLocal);
           if (
             !this.asyncDataStatus_ready ||
             isLocal ||
             (previousItem?.edited && !previousItem?.edited?.at)
           )
             return;
-          this.addNotification({
-            message: 'Thread recently updated',
-            timeout: 5000,
-          });
+          // this.addNotification({
+          //   message: 'Thread recently updated',
+          //   timeout: 5000,
+          // });
         },
       });
 

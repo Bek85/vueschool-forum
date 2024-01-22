@@ -59,7 +59,7 @@ export default {
 
           <img
             class="avatar-medium"
-            :src="userById(thread.userId).avatar"
+            :src="userById(thread.userId).avatar || '/user-placeholder.png'"
             alt=""
           />
 
