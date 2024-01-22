@@ -5,6 +5,7 @@
         v-for="notification in notifications"
         :key="notification.id"
         class="notification"
+        :class="`notification-type-${notification.type}`"
       >
         <span>{{ notification.message }}</span>
         <button @click="removeNotification(notification.id)">x</button>
@@ -35,6 +36,14 @@ const { notifications, removeNotification } = useNotifications();
   padding: 10px 20px;
   margin-bottom: 5px;
   border-left: 5px solid #263959;
+}
+
+.notification.notification-type-error {
+  color: rgb(146, 5, 5);
+  border-left: 5px solid rgb(146, 5, 5);
+}
+.notification.notification-type-success {
+  border-left: 5px solid rgb(37, 161, 32);
 }
 
 .notification-enter-active,
