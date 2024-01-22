@@ -11,14 +11,17 @@ export default {
   },
   data() {
     return {
+      uploadingImage: false,
       currentUser: { ...this.user },
     };
   },
   methods: {
     ...mapActions('auth', ['uploadAvatar']),
     async handleAvatarUpload(evt) {
+      this.uploadingImage = true;
       const file = evt.target.files[0];
       this.currentUser.avatar = await this.uploadAvatar({ file });
+      this.uploadingImage = false;
     },
     save() {
       this.$store.dispatch('users/updateUser', { ...this.currentUser });
@@ -34,13 +37,23 @@ export default {
 <template>
   <div class="profile-card">
     <form @submit.prevent="save">
-      <p class="text-center">
+      <p class="text-center avatar-edit">
         <label for="avatar">
           <img
-            :src="user.avatar"
+            :src="currentUser.avatar"
             :alt="user.name + ' profile picture'"
             class="avatar-xlarge img-update"
           />
+          <div class="avatar-upload-overlay">
+            <AppSpinner v-if="uploadingImage" color="white" />
+            <Fa
+              v-else
+              icon="camera"
+              size="3x"
+              :style="{ color: 'white', opacity: '8' }"
+            />
+          </div>
+
           <input
             v-show="false"
             id="avatar"
