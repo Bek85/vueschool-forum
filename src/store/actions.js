@@ -25,7 +25,8 @@ export default {
           }
           if (doc.exists) {
             const item = { ...doc.data(), id: doc.id };
-            let previousItem = findById(state[resource].item, id);
+            let previousItem = findById(state[resource].items, id);
+
             previousItem = previousItem ? { ...previousItem } : null;
             commit('setItem', { resource, id, item });
 

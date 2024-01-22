@@ -40,10 +40,16 @@ export default {
       onSnapshot: ({ isLocal, item, previousItem }) => {
         if (!this.asyncDataStatus_ready || isLocal) return;
         const newPostIds = difference(item.posts, previousItem.posts);
-        this.fetchPostsWithUsers(newPostIds);
-        this.addNotification({ message: 'Thread recently updated' });
+
+        const hasNewPosts = newPostIds.length > 0;
+        if (hasNewPosts) {
+          this.fetchPostsWithUsers(newPostIds);
+        } else {
+          this.addNotification({ message: 'Thread recently updated' });
+        }
       },
     });
+
     this.fetchPostsWithUsers(thread.posts);
 
     this.asyncDataStatus_fetched();
@@ -64,13 +70,21 @@ export default {
       // fetch the posts
       const posts = await this.fetchPosts({
         ids,
+        onSnapshot: ({ isLocal, previousItem }) => {
+          console.log(isLocal);
+          if (
+            !this.asyncDataStatus_ready ||
+            isLocal ||
+            (previousItem?.edited && !previousItem?.edited?.at)
+          )
+            return;
+          this.addNotification({ message: 'Thread recently updated' });
+        },
       });
 
       // fetch the users associated with posts
-      const userIds = posts
-        .map((post) => post.userId)
-        .concat(this.thread.userId);
-      await this.fetchUsers({ ids: userIds });
+      const users = posts.map((post) => post.userId).concat(this.thread.userId);
+      await this.fetchUsers({ ids: users });
     },
   },
 };
