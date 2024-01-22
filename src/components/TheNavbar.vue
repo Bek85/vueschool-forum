@@ -47,9 +47,9 @@ export default {
             :to="{ name: 'profile' }"
             @click.prevent="userDropdownOpen = !userDropdownOpen"
           >
-            <img
+            <AppAvatarImg
               class="avatar-small"
-              :src="authUser.avatar || '/user-placeholder.png'"
+              :src="authUser.avatar"
               :alt="`${authUser.name} profile picture`"
             />
             <span>

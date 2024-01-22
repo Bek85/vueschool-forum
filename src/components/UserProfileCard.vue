@@ -13,9 +13,9 @@ export default {
 <template>
   <div class="profile-card">
     <p class="text-center">
-      <img
-        :src="user.avatar || '/user-placeholder.png'"
-        :alt="`${user.name} profile pitcutre`"
+      <AppAvatarImg
+        :src="user.avatar"
+        :alt="`${user.name} profile picture`"
         class="avatar-xlarge"
       />
     </p>

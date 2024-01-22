@@ -57,9 +57,9 @@ export default {
             }}
           </p>
 
-          <img
+          <AppAvatarImg
             class="avatar-medium"
-            :src="userById(thread.userId).avatar || '/user-placeholder.png'"
+            :src="userById(thread.userId).avatar"
             alt=""
           />
 

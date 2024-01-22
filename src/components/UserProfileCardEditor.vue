@@ -40,8 +40,8 @@ export default {
     <form @submit.prevent="save">
       <p class="text-center avatar-edit">
         <label for="avatar">
-          <img
-            :src="currentUser.avatar || '/user-placeholder.png'"
+          <AppAvatarImg
+            :src="currentUser.avatar"
             :alt="user.name + ' profile picture'"
             class="avatar-xlarge img-update"
           />
