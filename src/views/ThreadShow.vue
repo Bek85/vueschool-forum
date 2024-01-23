@@ -71,6 +71,7 @@ export default {
       this.addNotification({
         message: 'New post added',
         timeout: 5000,
+        type: 'success',
       });
     },
 

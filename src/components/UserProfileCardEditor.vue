@@ -64,6 +64,7 @@ export default {
           />
         </label>
       </p>
+      <UserProfileCardEditorRandomAvatar @hit="currentUser.avatar = $event" />
 
       <div class="form-group">
         <input
