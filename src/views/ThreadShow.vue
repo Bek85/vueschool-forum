@@ -62,13 +62,18 @@ export default {
     ...mapActions('posts', ['fetchPosts', 'createPost']),
     ...mapActions('users', ['fetchUser', 'fetchUsers']),
 
-    addNewPost(eventData) {
+    async addNewPost(eventData) {
       const post = {
         ...eventData.post,
         threadId: this.id,
       };
-      this.createPost(post);
+      await this.createPost(post);
+      this.addNotification({
+        message: 'New post added',
+        timeout: 5000,
+      });
     },
+
     async fetchPostsWithUsers(ids) {
       // fetch the posts
       const posts = await this.fetchPosts({

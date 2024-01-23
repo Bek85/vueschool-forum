@@ -8,6 +8,8 @@ export default {
     done: { type: Boolean, default: false },
   },
 
+  emits: ['load'],
+
   data() {
     return {
       observer: null,
