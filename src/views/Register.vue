@@ -1,11 +1,12 @@
 <script>
-import { Form, Field } from 'vee-validate';
+import { Form, Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'RegisterView',
   components: {
     VeeForm: Form,
     VeeField: Field,
+    VeeErrorMessage: ErrorMessage,
   },
   emits: ['ready'],
   data() {
@@ -77,6 +78,7 @@ export default {
             type="text"
             class="form-input"
           />
+          <VeeErrorMessage name="name" class="form-error" />
         </div>
 
         <div class="form-group">
@@ -88,6 +90,7 @@ export default {
             type="text"
             class="form-input"
           />
+          <VeeErrorMessage name="username" class="form-error" />
         </div>
 
         <div class="form-group">
