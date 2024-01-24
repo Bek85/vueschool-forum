@@ -39,26 +39,32 @@ export default {
 <template>
   <div class="flex-grid justify-center">
     <div class="col-2">
-      <form class="card card-form" @submit.prevent="signIn">
+      <VeeForm class="card card-form" @submit="signIn">
         <h1 class="text-center">Login</h1>
 
         <div class="form-group">
           <label for="email">Email</label>
-          <input
+          <VeeField
             id="email"
             v-model="form.email"
+            name="email"
             type="text"
             class="form-input"
+            rules="required"
           />
+          <VeeErrorMessage name="email" class="form-error" />
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input
+          <VeeField
             id="password"
             v-model="form.password"
+            name="password"
             type="password"
             class="form-input"
+            rules="required"
           />
+          <VeeErrorMessage name="password" class="form-error" />
         </div>
 
         <div class="push-top">
@@ -68,7 +74,7 @@ export default {
         <div class="form-actions text-right">
           <RouterLink :to="{ name: 'register' }">Create an account?</RouterLink>
         </div>
-      </form>
+      </VeeForm>
 
       <div class="push-top text-center">
         <button class="btn-red btn-xsmall" @click="signInWithGoogle">

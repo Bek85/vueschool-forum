@@ -1,13 +1,7 @@
 <script>
-import { Form, Field, ErrorMessage } from 'vee-validate';
-
 export default {
   name: 'RegisterView',
-  components: {
-    VeeForm: Form,
-    VeeField: Field,
-    VeeErrorMessage: ErrorMessage,
-  },
+
   emits: ['ready'],
   data() {
     return {
@@ -27,10 +21,6 @@ export default {
   },
 
   methods: {
-    required(value) {
-      if (value && value.trim()) return true;
-      return 'This is required';
-    },
     async register() {
       await this.$store.dispatch('auth/registerUserWithEmailAndPassword', {
         ...this.form,
@@ -68,7 +58,7 @@ export default {
             name="name"
             type="text"
             class="form-input"
-            :rules="required"
+            rules="required"
           />
           <VeeErrorMessage name="name" class="form-error" />
         </div>
@@ -81,7 +71,7 @@ export default {
             name="username"
             type="text"
             class="form-input"
-            :rules="required"
+            rules="required"
           />
           <VeeErrorMessage name="username" class="form-error" />
         </div>
