@@ -1,6 +1,12 @@
 <script>
+import { Form, Field } from 'vee-validate';
+
 export default {
   name: 'RegisterView',
+  components: {
+    VeeForm: Form,
+    VeeField: Field,
+  },
   emits: ['ready'],
   data() {
     return {
@@ -46,19 +52,39 @@ export default {
 <template>
   <div class="flex-grid justify-center">
     <div class="col-2">
-      <form action="" class="card card-form" @submit.prevent="register">
+      <VeeForm
+        class="card card-form"
+        :validation-schema="{
+          name: (value) => {
+            if (value && value.trim()) return true;
+            return 'This is required';
+          },
+          username: (value) => {
+            if (value && value.trim()) return true;
+            return 'This is required';
+          },
+        }"
+        @submit="register"
+      >
         <h1 class="text-center">Register</h1>
 
         <div class="form-group">
           <label for="name">Full Name</label>
-          <input id="name" v-model="form.name" type="text" class="form-input" />
+          <VeeField
+            id="name"
+            v-model="form.name"
+            name="name"
+            type="text"
+            class="form-input"
+          />
         </div>
 
         <div class="form-group">
           <label for="username">Username</label>
-          <input
+          <VeeField
             id="username"
             v-model="form.username"
+            name="username"
             type="text"
             class="form-input"
           />
@@ -66,9 +92,10 @@ export default {
 
         <div class="form-group">
           <label for="email">Email</label>
-          <input
+          <VeeField
             id="email"
             v-model="form.email"
+            name="email"
             type="email"
             class="form-input"
           />
@@ -76,9 +103,10 @@ export default {
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input
+          <VeeField
             id="password"
             v-model="form.password"
+            name="password"
             type="password"
             class="form-input"
           />
@@ -92,9 +120,10 @@ export default {
               <img :src="avatarPreview" class="avatar-xlarge" alt="" />
             </div>
           </label>
-          <input
+          <VeeField
             v-show="!avatarPreview"
             id="avatar"
+            name="avatar"
             type="file"
             class="form-input"
             accept="image/*"
@@ -105,7 +134,7 @@ export default {
         <div class="form-actions">
           <button type="submit" class="btn-blue btn-block">Register</button>
         </div>
-      </form>
+      </VeeForm>
       <div class="text-center push-top">
         <button class="btn-red btn-xsmall" @click="registerWithGoogle">
           <i class="fa fa-google fa-btn"></i>Sign up with Google
