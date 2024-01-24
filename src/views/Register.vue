@@ -27,6 +27,10 @@ export default {
   },
 
   methods: {
+    required(value) {
+      if (value && value.trim()) return true;
+      return 'This is required';
+    },
     async register() {
       await this.$store.dispatch('auth/registerUserWithEmailAndPassword', {
         ...this.form,
@@ -53,20 +57,7 @@ export default {
 <template>
   <div class="flex-grid justify-center">
     <div class="col-2">
-      <VeeForm
-        class="card card-form"
-        :validation-schema="{
-          name: (value) => {
-            if (value && value.trim()) return true;
-            return 'This is required';
-          },
-          username: (value) => {
-            if (value && value.trim()) return true;
-            return 'This is required';
-          },
-        }"
-        @submit="register"
-      >
+      <VeeForm class="card card-form" @submit="register">
         <h1 class="text-center">Register</h1>
 
         <div class="form-group">
@@ -77,6 +68,7 @@ export default {
             name="name"
             type="text"
             class="form-input"
+            :rules="required"
           />
           <VeeErrorMessage name="name" class="form-error" />
         </div>
@@ -89,6 +81,7 @@ export default {
             name="username"
             type="text"
             class="form-input"
+            :rules="required"
           />
           <VeeErrorMessage name="username" class="form-error" />
         </div>
