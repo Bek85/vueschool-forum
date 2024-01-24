@@ -59,6 +59,7 @@ export default {
             type="text"
             class="form-input"
             rules="required"
+            label="Name"
           />
           <VeeErrorMessage name="name" class="form-error" />
         </div>
@@ -72,6 +73,7 @@ export default {
             type="text"
             class="form-input"
             rules="required"
+            label="Username"
           />
           <VeeErrorMessage name="username" class="form-error" />
         </div>
@@ -85,6 +87,7 @@ export default {
             type="email"
             class="form-input"
             rules="required|email"
+            label="Email"
           />
           <VeeErrorMessage name="email" class="form-error" />
         </div>
@@ -98,6 +101,7 @@ export default {
             type="password"
             class="form-input"
             rules="required|min:8"
+            label="Password"
           />
           <VeeErrorMessage name="password" class="form-error" />
         </div>
