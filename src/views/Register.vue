@@ -72,7 +72,7 @@ export default {
             name="username"
             type="text"
             class="form-input"
-            rules="required"
+            rules="required|unique:users,username"
             label="Username"
           />
           <VeeErrorMessage name="username" class="form-error" />
@@ -86,7 +86,11 @@ export default {
             name="email"
             type="email"
             class="form-input"
-            rules="required|email"
+            :rules="{
+              required: true,
+              email: true,
+              unique: { collection: 'users', field: 'email' },
+            }"
             label="Email"
           />
           <VeeErrorMessage name="email" class="form-error" />
