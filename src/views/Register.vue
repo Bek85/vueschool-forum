@@ -50,53 +50,31 @@ export default {
       <VeeForm class="card card-form" @submit="register">
         <h1 class="text-center">Register</h1>
 
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <VeeField
-            id="name"
-            v-model="form.name"
-            name="name"
-            type="text"
-            class="form-input"
-            rules="required"
-            label="Name"
-          />
-          <VeeErrorMessage name="name" class="form-error" />
-        </div>
+        <AppFormField
+          v-model="form.name"
+          name="name"
+          label="Name"
+          type="text"
+          rules="required"
+        />
 
-        <div class="form-group">
-          <label for="username">Username</label>
-          <VeeField
-            id="username"
-            v-model="form.username"
-            name="username"
-            type="text"
-            class="form-input"
-            rules="required|unique:users,username"
-            label="Username"
-          />
-          <VeeErrorMessage name="username" class="form-error" />
-        </div>
+        <AppFormField
+          v-model="form.username"
+          name="username"
+          label="Username"
+          type="text"
+          rules="required|unique:users,username"
+        />
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <VeeField
-            id="email"
-            v-model="form.email"
-            name="email"
-            type="email"
-            class="form-input"
-            :rules="{
-              required: true,
-              email: true,
-              unique: { collection: 'users', field: 'email' },
-            }"
-            label="Email"
-          />
-          <VeeErrorMessage name="email" class="form-error" />
-        </div>
+        <AppFormField
+          v-model="form.email"
+          name="email"
+          label="Email"
+          type="email"
+          rules="required|email|unique:users,email"
+        />
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="password">Password</label>
           <VeeField
             id="password"
@@ -108,7 +86,15 @@ export default {
             label="Password"
           />
           <VeeErrorMessage name="password" class="form-error" />
-        </div>
+        </div> -->
+
+        <AppFormField
+          v-model="form.password"
+          name="password"
+          label="Password"
+          type="password"
+          rules="required|min:8"
+        />
 
         <div class="form-group">
           <label for="avatar"
