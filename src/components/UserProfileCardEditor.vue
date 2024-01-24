@@ -84,12 +84,14 @@ export default {
         v-model="currentUser.username"
         name="username"
         label="Username"
+        :rules="`required|unique:users,username,${user.username}`"
       />
 
       <AppFormField
         v-model="currentUser.name"
-        name="username"
+        name="name"
         label="Full Name"
+        rules="required"
       />
 
       <AppFormField
@@ -97,6 +99,7 @@ export default {
         as="textarea"
         name="bio"
         label="Bio"
+        placeholder="Write a few words about yourself."
       />
 
       <div class="stats">
@@ -111,6 +114,7 @@ export default {
         name="website"
         label="Website"
         autocomplete="off"
+        rules="url"
       />
 
       <AppFormField
@@ -118,6 +122,7 @@ export default {
         name="email"
         label="Email"
         autocomplete="off"
+        :rules="`required|email|unique:users,email,${user.email}`"
       />
 
       <AppFormField
