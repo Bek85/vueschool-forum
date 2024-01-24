@@ -11,6 +11,7 @@ export default {
   data() {
     return {
       postCopy: { ...this.post },
+      formKey: Math.random(),
     };
   },
   computed: {
@@ -25,6 +26,7 @@ export default {
     save() {
       this.$emit('save', { post: this.postCopy });
       this.postCopy.text = '';
+      this.formKey = Math.random();
     },
   },
 };
@@ -32,22 +34,21 @@ export default {
 
 <template>
   <div class="col-full">
-    <form @submit.prevent="save">
-      <div class="form-group">
-        <textarea
-          id=""
-          v-model="postCopy.text"
-          class="form-input"
-          name=""
-          cols="30"
-          rows="10"
-        ></textarea>
-      </div>
+    <VeeForm :key="formKey" @submit="save">
+      <AppFormField
+        v-model="postCopy.text"
+        as="textarea"
+        name="post"
+        label="Post"
+        cols="30"
+        rows="10"
+        rules="required"
+      />
       <div class="form-actions">
         <button class="btn-blue">
           {{ post.id ? 'Update Post' : 'Submit Post' }}
         </button>
       </div>
-    </form>
+    </VeeForm>
   </div>
 </template>
