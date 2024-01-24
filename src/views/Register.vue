@@ -97,7 +97,9 @@ export default {
             name="password"
             type="password"
             class="form-input"
+            rules="required|min:8"
           />
+          <VeeErrorMessage name="password" class="form-error" />
         </div>
 
         <div class="form-group">
