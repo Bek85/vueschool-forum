@@ -42,30 +42,21 @@ export default {
       <VeeForm class="card card-form" @submit="signIn">
         <h1 class="text-center">Login</h1>
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <VeeField
-            id="email"
-            v-model="form.email"
-            name="email"
-            type="text"
-            class="form-input"
-            rules="required"
-          />
-          <VeeErrorMessage name="email" class="form-error" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <VeeField
-            id="password"
-            v-model="form.password"
-            name="password"
-            type="password"
-            class="form-input"
-            rules="required"
-          />
-          <VeeErrorMessage name="password" class="form-error" />
-        </div>
+        <AppFormField
+          v-model="form.email"
+          name="email"
+          label="Email"
+          type="email"
+          rules="required|email"
+        />
+
+        <AppFormField
+          v-model="form.password"
+          name="password"
+          label="Password"
+          type="password"
+          rules="required|min:8"
+        />
 
         <div class="push-top">
           <button type="submit" class="btn-blue btn-block">Log in</button>

@@ -21,5 +21,6 @@ export default {
     label: { type: String, required: true },
     modelValue: { type: String, required: true },
   },
+  emits: ['modelUpdate'],
 };
 </script>

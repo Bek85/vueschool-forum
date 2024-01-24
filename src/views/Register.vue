@@ -74,20 +74,6 @@ export default {
           rules="required|email|unique:users,email"
         />
 
-        <!-- <div class="form-group">
-          <label for="password">Password</label>
-          <VeeField
-            id="password"
-            v-model="form.password"
-            name="password"
-            type="password"
-            class="form-input"
-            rules="required|min:8"
-            label="Password"
-          />
-          <VeeErrorMessage name="password" class="form-error" />
-        </div> -->
-
         <AppFormField
           v-model="form.password"
           name="password"
