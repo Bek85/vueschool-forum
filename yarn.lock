@@ -919,6 +919,13 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
+"@vee-validate/rules@^4.12.4":
+  version "4.12.4"
+  resolved "https://registry.yarnpkg.com/@vee-validate/rules/-/rules-4.12.4.tgz#45b4121e7f9943ef3f0f480f9fa4a386cb56186b"
+  integrity sha512-r/BGZAst/0OkFJ9m+YGOzULVPZc7WQAFbAZk4UO9epDzz6KYt9fEC0rh6BbzwSf/Xw9U0JSCDOkNZ1gYNDoR5g==
+  dependencies:
+    vee-validate "4.12.4"
+
 "@vitejs/plugin-vue@^4.5.0":
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-4.5.1.tgz#84815bfeb46928c03a9ed765e4a8425c22345e15"
@@ -2880,7 +2887,7 @@ uuid@^9.0.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.1.tgz#e188d4c8853cc722220392c424cd637f32293f30"
   integrity sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==
 
-vee-validate@^4.12.4:
+vee-validate@4.12.4, vee-validate@^4.12.4:
   version "4.12.4"
   resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-4.12.4.tgz#57d1721711fef6921e165c486cfefd2f7fe80b2f"
   integrity sha512-rqSjMdl0l/RiGKywKhkXttUKwDlQOoxTxe31uMQiMlwK4Hbtlvr3OcQvpREp/qPTARxNKudKWCUVW/mfzuxUVQ==
