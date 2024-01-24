@@ -84,7 +84,9 @@ export default {
             name="email"
             type="email"
             class="form-input"
+            rules="required|email"
           />
+          <VeeErrorMessage name="email" class="form-error" />
         </div>
 
         <div class="form-group">
