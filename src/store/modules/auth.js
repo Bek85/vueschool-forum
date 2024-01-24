@@ -80,15 +80,16 @@ export default {
       );
     },
 
-    uploadAvatar: async ({ state }, { authId, file }) => {
+    uploadAvatar: async ({ state }, { authId, file, filename }) => {
       if (!file) return null;
       authId = authId || state.authId;
+      filename = filename || file.name;
 
       try {
         const storageBucket = firebase
           .storage()
           .ref()
-          .child(`uploads/${authId}/images/${Date.now()}-${file.name}`);
+          .child(`uploads/${authId}/images/${Date.now()}-${filename}`);
         const snapshot = await storageBucket.put(file);
         const url = await snapshot.ref.getDownloadURL();
         addNotification({

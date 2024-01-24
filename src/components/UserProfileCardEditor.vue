@@ -24,7 +24,21 @@ export default {
       this.currentUser.avatar = uploadedImage || this.currentUser.avatar;
       this.uploadingImage = false;
     },
-    save() {
+    async handleRandomAvatarUpload() {
+      const randomAvatarGenerated =
+        this.currentUser.avatar.startsWith('https://pixabay');
+      if (randomAvatarGenerated) {
+        const image = await fetch(this.currentUser.avatar);
+        const blob = await image.blob();
+        this.currentUser.avatar = await this.uploadAvatar({
+          file: blob,
+          filename: 'random',
+        });
+      }
+    },
+
+    async save() {
+      await this.handleRandomAvatarUpload();
       this.$store.dispatch('users/updateUser', { ...this.currentUser });
       this.$router.push({ name: 'profile' });
     },
