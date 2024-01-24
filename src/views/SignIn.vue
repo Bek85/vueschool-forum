@@ -55,7 +55,7 @@ export default {
           name="password"
           label="Password"
           type="password"
-          rules="required|min:8"
+          rules="required|min:6"
         />
 
         <div class="push-top">

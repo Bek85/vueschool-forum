@@ -49,29 +49,23 @@ export default {
 </script>
 
 <template>
-  <form @submit.prevent="save">
-    <div class="form-group">
-      <label for="thread_title">Title:</label>
-      <input
-        id="thread_title"
-        v-model="form.title"
-        type="text"
-        class="form-input"
-        name="title"
-      />
-    </div>
+  <VeeForm @submit="save">
+    <AppFormField
+      v-model="form.title"
+      name="title"
+      label="Title"
+      rules="required"
+    />
 
-    <div class="form-group">
-      <label for="thread_content">Content:</label>
-      <textarea
-        id="thread_content"
-        v-model="form.text"
-        class="form-input"
-        name="content"
-        rows="8"
-        cols="140"
-      ></textarea>
-    </div>
+    <AppFormField
+      v-model="form.text"
+      as="textarea"
+      name="content"
+      label="Content"
+      rules="required"
+      rows="8"
+      cols="140"
+    />
 
     <div class="btn-group">
       <button class="btn btn-ghost" @click.prevent="$emit('cancel')">
@@ -81,5 +75,5 @@ export default {
         {{ existing ? 'Update' : 'Publish' }}
       </button>
     </div>
-  </form>
+  </VeeForm>
 </template>
