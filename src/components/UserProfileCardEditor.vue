@@ -13,10 +13,21 @@ export default {
     return {
       uploadingImage: false,
       currentUser: { ...this.user },
+      locationOptions: [],
     };
   },
+
+  created() {
+    this.loadLocationOptions();
+  },
+
   methods: {
     ...mapActions('auth', ['uploadAvatar']),
+
+    async loadLocationOptions() {
+      const res = await fetch('https://restcountries.com/v3/all');
+      this.locationOptions = await res.json();
+    },
     async handleAvatarUpload(evt) {
       this.uploadingImage = true;
       const file = evt.target.files[0];
@@ -130,7 +141,15 @@ export default {
         name="location"
         label="Location"
         autocomplete="off"
+        list="locations"
       />
+      <datalist id="locations">
+        <option
+          v-for="location in locationOptions"
+          :key="location.name.common"
+          :value="location.name.common"
+        />
+      </datalist>
 
       <div class="btn-group space-between">
         <button class="btn-ghost" @click.prevent="cancel">Cancel</button>
