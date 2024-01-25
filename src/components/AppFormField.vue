@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  inheritAttrs: false,
   props: {
     name: { type: String, required: true },
     label: { type: String, required: true },

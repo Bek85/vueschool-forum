@@ -17,14 +17,12 @@ export default {
     };
   },
 
-  created() {
-    this.loadLocationOptions();
-  },
-
   methods: {
     ...mapActions('auth', ['uploadAvatar']),
 
     async loadLocationOptions() {
+      if (this.locationOptions.length) return;
+
       const res = await fetch('https://restcountries.com/v3/all');
       this.locationOptions = await res.json();
     },
@@ -142,6 +140,7 @@ export default {
         label="Location"
         autocomplete="off"
         list="locations"
+        @mouseenter="loadLocationOptions"
       />
       <datalist id="locations">
         <option
